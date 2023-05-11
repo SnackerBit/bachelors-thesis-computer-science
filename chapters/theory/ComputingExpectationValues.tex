@@ -1,0 +1,27 @@
+Both in linear and non-linear HOPS the density matrix of the system is computed by
+averaging over multiple realizations of pure states, see equations 
+(\ref{eq:averaging_states_linear}) and (\ref{eq:averaging_states_linear}).
+However, mostly one is not interested in the density matrix directly, but in 
+the expectation value of a given operator $\hat{A}$. In linear HOPS, the average
+is taken over unnormalized states, and thus the expectation value can be computed as
+\begin{equation}
+    \left\langle\hat{A}\right\rangle_t 
+    = \frac{\text{tr}\left\{\rho\left(t\right)\hat{A}\right\}}{\text{tr}\left\{\rho\left(t\right)\right\}}
+    \approx \frac{\text{tr}\left\{\frac{1}{N}\sum_{i=1}^{N}\left|\Psi_t\left(z^*_i\right)\right\rangle\left\langle\Psi_t\left(z^*_i\right)\right|\hat{A}\right\}}
+    {\text{tr}\left\{\frac{1}{N}\sum_{i=1}^{N}\left|\Psi_t\left(z^*_i\right)\right\rangle\left\langle\Psi_t\left(z^*_i\right)\right|\right\}}
+    = \frac{\sum_i\left\langle\Psi_t\left(z^*_i\right)\right|\hat{A}\left|\Psi_t\left(z^*_i\right)\right\rangle}
+    {\sum_i\left\langle\Psi_t\left(z^*_i\right)\middle|\Psi_t\left(z^*_i\right)\right\rangle},
+\end{equation}
+where we denote different realizations $i$ of the noise with $z^*_i$ and we used the
+cyclic property of the trace.
+\\
+In non-linear HOPS the average is taken over normalized states $\ket*{\widetilde{\Psi}_t\left(z^*\right)}$ instead,
+and thus it holds $\text{tr}\left\{\rho\right\} = 1$. The expectation value can then be
+computed as
+\begin{equation}
+    \left\langle\hat{A}\right\rangle_t 
+    = \frac{\tr{\rho\left(t\right)\hat{A}}}{\tr{\rho\left(t\right)}}
+    \approx \frac{1}{N}\sum_{i=1}^{N} \expectationvalue{\hat{A}}{\widetilde{\Psi}_t\left(z^*_i\right)}
+    = \frac{1}{N}\sum_{i=1}^{N} \frac{\left\langle\Psi_t\left(z^*_i\right)\right|\hat{A}\left|\Psi_t\left(z^*_i\right)\right\rangle}
+    {\left\langle\Psi_t\left(z^*_i\right)\middle|\Psi_t\left(z^*_i\right)\right\rangle}.
+\end{equation}

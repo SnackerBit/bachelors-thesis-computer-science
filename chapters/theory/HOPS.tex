@@ -1,0 +1,116 @@
+The NMQSD equation (\ref{eq:non_markovian_schroedinger_equation})
+cannot easily be solved numerically due to the functional derivative.
+However, one can bring the equation into a hierarchically structured
+set of differential equations, the Hierarchy of Pure States (HOPS) \cite{Suess:2014},
+which can then be integrated numerically. In this section, we will derive the linear HOPS equation, mainly
+following the derivation in \cite{Hartmann:2021}, but the same result is also obtained in \cite{Suess:2014,Hartmann:2017}.
+\\
+We will start by approximating the bath correlation function (BCF) by a finite sum of exponentials
+\begin{equation*}
+    \alpha\left(\tau\right) \approx \sum_{\mu=1}^{N_\text{BCF}} \alpha_\mu\left(\tau\right) \coloneqq \sum_{\mu=1}^{N_\text{bath}} g_\mu e^{-\omega_\mu\tau},
+\end{equation*}
+with constants $g_\mu$ and $\omega_\mu$. The total number of terms $N_\text{BCF}$ corresponds
+to the number of harmonic oscillators coupling to each site of the system. Such an approximation
+of the bath correlation function is possible for many systems of interest, and a specific
+example is given in section \ref{}, where we approximate the BCF of the spin-boson model.
+\\
+In the following, we will assume that the system lives only on a single site, $N=1$. The derivation of the HOPS can
+trivially be expanded to $N>1$ sites.
+\\
+We will work with the discrete version of the NMQSD equation (\ref{eq:non_markovian_schroedinger_equation}) \cite{Hartmann:2021}
+\begin{equation}
+    \label{eq:discrete_NMQSD_equation}
+    \Psi_{n+1} = \Psi_n + \Delta \cdot \left\{
+        -iH_\text{S}+\left[
+            Lz_{n}^* - L^\dagger \sum_{m=0}^{n-1} \alpha\left(n\Delta-m\Delta\right)\frac{\partial}{\partial z_{m}^*}
+        \right]
+    \right\} \Psi_n,
+\end{equation}
+where we introduced the time step $\Delta$, with $t \equiv n\cdot\Delta$, and $z^* = \left\{z_{1}^*, z_{2}^*,\dots,z_{n}^*\right\}$
+now is a discrete stochastic process. One can easily see that the NMQSD equation
+is recovered if the limit $\Delta\rightarrow0$ is taken. The reason for using the discrete version of the NMQSD equation
+is that we can replace the functional derivative with an ordinary derivative
+and the derivation becomes much more intuitive.
+\\
+We define the operator
+\begin{equation*}
+    D_\mu^n \coloneqq \sum_{m=0}^{n-1} \alpha\left(n\Delta - m\Delta\right) \frac{\partial}{\partial z_m^*}
+    = g_\mu \sum_{m=0}^{n-1} e^{-\omega_\mu\left(n-m\right)\cdot\Delta}
+    \frac{\partial}{\partial z_m^*}
+\end{equation*}
+and the auxillary states
+\begin{equation}
+    \label{eq:definition_of_auxillary_states}
+    \Psi_n^{(\vec{k})} \coloneqq \prod_{\mu=1}^{N_\text{BCF}} \left(D_\mu^n\right)^{k_\mu}\Psi_n,
+\end{equation}
+using an index vector $\vec{k}\in\mathbb{N}_0^{N_\text{BCF}}$. The physical pure state is
+recovered when setting the index vector to zero, $\Psi_n = \Psi_n^{(\vec{0})}$.
+Using these definitions, we can rewrite the discrete NMQSD equation (\ref{eq:discrete_NMQSD_equation}):
+\begin{equation*}
+    \Psi_{n+1}^{(\vec{0})} = \Psi_{n}^{(\vec{0})} + \Delta \cdot \left(
+        -iH_\text{S} + Lz_n^* - L^\dagger\sum_{\mu=1}^{N_\text{BCF}}D_\mu^n
+    \right) \Psi_{n}^{(\vec{0})}
+    = \Psi_{n}^{(\vec{0})} + \Delta \cdot \left(
+        -iH_\text{S} + Lz_n^*
+    \right) \Psi_{n}^{(\vec{0})} - L^\dagger\sum_{\mu=1}^{N_\text{BCF}}\Psi_n^{(\vec{0}+\hat{e}_\mu)},
+\end{equation*}
+where $\hat{e}_\mu$ is the $\mu$-th unit vector.
+\\
+Our next goal is to derive an equation of motion for an arbitrary auxillary state $\Psi_n^{(\vec{k})}$.
+Using equation (\ref{eq:definition_of_auxillary_states}) we can write
+\begin{equation}
+    \label{eq:auxillary_state_np1}
+    \Psi_{n+1}^{(\vec{k})} = \prod_{\mu=1}^{N_\text{BCF}} \left(D_\mu^{n+1}\right)^{k_\mu} \Psi_{n+1}.
+\end{equation}
+We can expand
+\begin{equation*}
+    D_\mu^{n+1} = \left(1-\omega_\mu\cdot\Delta\right)\left(g_\mu\frac{\partial}{\partial z_n^*} + D_\mu^n\right) + O\left(\Delta^2\right)
+\end{equation*}
+and hence
+\begin{equation*}
+    \left(D_\mu^{n+1}\right)^{k_\mu} = 
+    \left(1-k_\mu\omega_\mu\Delta\right)
+    \left(g_\mu\frac{\partial}{\partial z_n^*} + D_\mu^n\right)^{k_\mu} + O\left(\Delta^2\right).
+\end{equation*}
+To further simplify eq (\ref{eq:auxillary_state_np1}), we can use the fact that the physical pure state
+at time $t$, $\Psi_n$, depends only on the stochastic variables $z_1^*, z_2^*, \dots, z_{n-1}^*$, but not
+on $z_n^*$, which we can write as $\Psi_n=\Psi_n\left(z^*|_0^{n-1}\right)$. It follows that
+$\frac{\partial}{\partial z_n^*}\Psi_n = 0$. Using equation (\ref{eq:discrete_NMQSD_equation})
+we can see $\frac{\partial^2}{\partial z_n^{*2}}\Psi_{n+1} = 0$ and therefore
+\begin{equation}
+    \label{eq:simplification_of_D_psi_np1}
+    \left(D_\mu^{n+1}\right)^{k_\mu} \Psi_{n+1} = \left(1-k_\mu\omega_\mu\Delta\right)
+    \left(k_\mu g_\mu \left(D_\mu^n\right)^{k_\mu-1}\frac{\partial}{\partial z_n^*} + \left(D_\mu^n\right)^{k_\mu}\right) + O\left(\Delta^2\right).
+\end{equation}
+Inserting equations (\ref{eq:discrete_NMQSD_equation}) and (\ref{eq:simplification_of_D_psi_np1}) into equation (\ref{eq:auxillary_state_np1}) and performing some
+additional algebra, one arrives at
+\begin{equation*}
+    \Psi_{n+1}^{(\vec{k})} = \Psi_n^{(\vec{k})} + \Delta\cdot\left(
+        -iH_\text{S} - \vec{k}\cdot\vec{\omega} + z_t^*L
+    \right) \Psi_n^(\vec{k}) 
+    + \Delta \cdot L\sum_{\mu=1}^{N_\text{BCF}}g_\mu\Psi_n^{(\vec{k}-\hat{e}_\mu)}
+    - \Delta \cdot L^\dagger\sum_{\mu=1}^{N_\text{BCF}}\Psi_n^{(\vec{k}+\hat{e}_\mu)}.
+\end{equation*}
+Performing the limit $\Delta \rightarrow 0$, we obtain the linear HOPS equation for a single 
+site coupled to multiple heat baths:
+\begin{equation}
+    \label{eq:linear_HOPS_single_site}
+    \frac{\partial}{\partial t}\Psi_t^{(\vec{k})} = \left(
+        -iH_\text{S} - \vec{k}\cdot\vec{\omega} + z_t^*L
+    \right) \Psi_t^{(\vec{k})}
+    + L\sum_{\mu=1}^{N_\text{BCF}}g_\mu\Psi_t^{(\vec{k}-\hat{e}_\mu)}
+    - L^\dagger\sum_{\mu=1}^{N_\text{BCF}}\Psi_t^{(\vec{k}+\hat{e}_\mu)}.
+\end{equation}
+Repeating the derivation for $N>1$ sites yields
+\begin{equation}
+    \label{eq:linear_HOPS_multiple_sites}
+    \frac{\partial}{\partial t}\Psi_t^{(\vec{k})} = \left(
+        -iH_\text{S} - \vec{k}\cdot\vec{\omega} + \sum_{i=1}^{N} z_{i,t}^*L_i
+    \right) \Psi_t^{(\vec{k})}
+    + \sum_{i=1}^{N} \left[
+        L_i\sum_{\mu=1}^{N_\text{BCF}}g_\mu\Psi_t^{(\vec{k}-\hat{e}_\mu)}
+        - L_i^\dagger\sum_{\mu=1}^{N_\text{BCF}}\Psi_t^{(\vec{k}+\hat{e}_\mu)}
+    \right].
+\end{equation}
+Note that the HOPS equations do not contain functional derivatives
+and therefore can be integrated numerically.

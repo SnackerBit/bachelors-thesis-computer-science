@@ -1,0 +1,98 @@
+\documentclass[%
+thesis=student,% bachlor's or master's thesis
+coverpage=false,% do not print an extra cover page
+titlepage=false,% do not print an extra title page
+headmarks=true, % headmarks can be switched on or off
+english,% or `english`
+font=libertine, % use `libertine` font; alternatives: `helvet` / `palatino` / `times`
+math=newpxtx, % math font `newpxtx`; alternatives: `ams`, `pxtx`
+BCOR=5mm,% binding correction - adapt accordingly
+coverBCOR=11mm% binding correction for the cover - adapt accordingly
+]{tumbook}
+
+\makeatletter %redefine some labels from the TUM template
+\provideName{\@tum@examiner@}{Supervisor}{Themensteller} % or `Themenstellerin`
+\provideName{\@tum@supervisor@}{Advisor}{Betreuer} % or `Advisor` / `Betreuerin`
+\makeatother
+
+\usepackage{booktabs}% for more beautiful tables
+\usepackage{cleveref}% intelligent references
+
+\usepackage{diffcoeff}
+\usepackage{amsmath}
+
+\usepackage{physics}
+
+%Literatur
+\usepackage[%
+    backend=bibtex, %, or `biber` on more up-to-date systems
+    sortcites, % sort automatically
+    sorting=none, % sort order
+    safeinputenc, % solves problems with unicode-formatted author names etc.
+    citestyle=numeric, %
+    bibstyle=numeric, %
+    hyperref=true, % provide clickable links
+    maxbibnames=4, % shorten author list for more than 4 names
+    maxcitenames=4, % use at most 4 names for key
+    url=false, % do not print URLs
+    doi=false, % do not print DOIs
+    giveninits=true,
+    ]%
+{biblatex}
+\addbibresource{literature.bib}
+
+% automatische Anführungszeichen
+\usepackage[autostyle=true]{csquotes}
+
+
+\title{Benchmarking a Tree Tensor Network Algorithm for the HOPS-Method to Simulate Open non-Markovian Quantum Sytems}
+
+\author{Benjamin Sappler}
+
+\degree{Bachlor of Science}% or `Bachlor of Science`
+\dateSubmitted{June 15, 2023}% preferably use some universally recognized date format
+
+\examiner{Prof.\@ Dr.\@ Christian Mendl}% `Themensteller`
+\supervisor{Richard Milbradt}% `Betreuer`
+
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\section*{Zusammenfassung}
+Eine kurze Zusammenfassung der Arbeit auf Deutsch.
+
+\section*{Abstract}
+A brief abstract of this thesis in English.
+
+%\cleardoublepage{}
+
+\tableofcontents
+
+\mainmatter{}
+
+\chapter{Introduction}
+
+\chapter{Theory}
+
+\section{Non-Markovian Quantum State Diffusion (NMQSD)}
+\input{chapters/theory/NMQSD.tex}
+\section{Hierarchy Of Pure States (HOPS)}
+\input{chapters/theory/HOPS.tex}
+\section{Computing Expectation Values}
+\input{chapters/theory/ComputingExpectationValues.tex}
+
+\chapter{Implementing and testing HOPS}
+
+\chapter{Implementing and testing HOMPS}
+
+\section{The BCF of the Spin-Boson model}
+\input{chapters/HOMPS/SpinBosonBCF.tex}
+
+\backmatter{}
+
+\printbibliography{} % print bibliography
+
+\end{document}
