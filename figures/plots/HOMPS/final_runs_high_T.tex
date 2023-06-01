@@ -1,0 +1,30 @@
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1]
+        \definecolor{color1}{HTML}{deebf4}
+        \definecolor{color2}{HTML}{b3d1e7}
+        \definecolor{color3}{HTML}{8ab7d9}
+        \definecolor{color4}{HTML}{629ccb}
+        \definecolor{color5}{HTML}{3182bd}
+
+        \begin{axis}[xlabel=$t$, ylabel=$\left\langle\sigma_z\right\rangle$,
+            grid=both, xmin=0, xmax=30, ymin=-.5, ymax=1, no markers, 
+            every axis plot/.append style={very thick}]
+
+            \addplot[color = color1]
+            table[x=t, y=sigma_z_100, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
+            \addlegendentry{100 realizations}
+
+            \addplot[color = color3]
+            table[x=t, y=sigma_z_1000, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
+            \addlegendentry{1000 realizations}
+
+            \addplot[color = color5]
+            table[x=t, y=sigma_z_10000, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
+            \addlegendentry{10000 realizations}
+
+        \end{axis}
+    \end{tikzpicture} 
+    \label{fig:full_runs_HOMPS_high_T} 
+    \caption{test}
+\end{figure}

@@ -1,0 +1,41 @@
+A problem of the linear HOPS equation is that the states are not normalized. This leads to different realizations of the noise
+producing state vectors with vastly different magnitudes. The stochastic expectation value is then dominated by the states vectors
+with the largest magnitude, which means that one needs to compute a lot of states until the expectation value is converged.
+If a specific run happens to produce a state vector with low magnitude, this will not change the result much and can be seen
+as wasted computation time. To fix this problem, one can derive a non-linear version of HOPS, where the density matrix of the
+reduced systems is computed as an expectation value over normalized states
+\begin{equation*}
+    \widetilde{\Psi}_t(z) \coloneqq \frac{\Psi_t(z)}{\norm{\Psi_t(z)}}
+\end{equation*}
+instead,
+\begin{equation}
+    \label{eq:averaging_states_nonlinear}
+    \rho\left(t\right) = \mathbb{E}\left[\ket*{\widetilde{\Psi}_t\left(z\right)}\bra*{\widetilde{\Psi}_t\left(z)\right)}\right].
+\end{equation}
+ The non-linear HOPS equations are then obtained by replacing \cite{Diosi:1998}
+\begin{equation*}
+    \hat{L}^\dagger \rightarrow \hat{L}^\dagger - \left\langle
+        \hat{L}^\dagger
+    \right\rangle_t
+\end{equation*}
+and
+\begin{equation}
+    \label{eq:memory_term_nonlinear_HOPS}
+    z_t^* \rightarrow \tilde{z}_t^* \coloneqq z_t^* + \int_0^t \alpha^*(t-s) \left\langle
+        \hat{L}^\dagger
+    \right\rangle_s \text{ds}
+\end{equation}
+in the linear HOPS equation. Here, $\left\langle \cdot \right\rangle_t$ denotes the expectation value at time $t$, calculated using the normalized state.
+The full non-linear HOPS then becomes
+\begin{equation}
+    \label{eq:non_linear_HOPS_single_site}
+    \frac{\partial}{\partial t}\Psi_t^{(\vectorbold{n})} = \left(
+        -i\hat{H}_\text{S} - \vectorbold{n}\cdot\boldsymbol{\omega} + \hat{L}\tilde{z}_t^*
+    \right) \Psi_t^{(\vectorbold{n})}
+    + L\sum_{k=1}^{K}n_kg_k\Psi_t^{(\vectorbold{n}-\vectorbold{e}_k)}
+    - \left(
+        \hat{L}^\dagger - \langle
+        \hat{L}^\dagger
+    \rangle_t
+    \right)\sum_{k=1}^{K}\Psi_t^{(\vectorbold{n}+\vectorbold{e}_k)}.
+\end{equation}

@@ -1,0 +1,47 @@
+\documentclass[crop,tikz]{standalone}
+\usetikzlibrary{shapes.misc}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{amsmath}
+
+\def\scale{1.5}
+\def\gammapos{1.3}
+\definecolor{customGreen}{RGB}{0, 150, 0}
+\def\lineMarkingLabelOffset{0.1}
+
+\tikzset{cross/.style={cross out, draw=black, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt, thick},
+cross/.default={2.5*\scale}}
+
+\begin{document}
+\begin{tikzpicture}
+
+    \def\nodewidth{25pt}
+    \def\innersep{0pt}
+    \def\verticalDist{1}
+    \def\horizontalDist{3}
+
+    \node[draw, circle, minimum width=\nodewidth, inner sep=\innersep] (start) at (0, 0) {start};
+    \node[draw, circle, minimum width=\nodewidth, inner sep=\innersep] (n1) at (\horizontalDist, \verticalDist) {1};
+    \node[draw, circle, minimum width=\nodewidth, inner sep=\innersep] (n2) at (\horizontalDist, -\verticalDist) {2};
+    \node[draw, circle, minimum width=\nodewidth, inner sep=\innersep] (n3) at (\horizontalDist, -3*\verticalDist) {3};
+    \node[draw, circle, minimum width=\nodewidth, inner sep=\innersep] (idR) at (2*\horizontalDist, 0) {idR};
+
+    %\draw[thick,->,shorten >=1pt] (n2) to [out=135,in=225] (n2);
+    %\draw[red,thick,->] (n2.45) arc (0:264:4mm);
+    \draw[->] (n1) to[in=120,out=60,looseness=4] node[midway,above] {$\mathds{1}$} (n1);
+    \draw[->] (n2) to[in=120,out=60,looseness=4] node[midway,above] {$\mathds{1}$} (n2);
+    \draw[->] (n3) to[in=120,out=60,looseness=4] node[midway,above] {$\mathds{1}$} (n3);
+    
+    \draw[->] (start) to node[midway,above] {$-i\mathds{1}$} (n1);
+    \draw[->] (start) to node[midway,below] {$i\hat{L}$} (n2);
+    \draw[->] (start) to[in=180,out=-90,looseness=1] node[midway,below left] {$i\left(\langle \hat{L}^\dagger\rangle\mathds{1} - \hat{L}^\dagger\right)$} (n3);
+    \draw[->] (start) to[in=90,out=90,looseness=1.5] node[midway,above] {$\hat{H}_{\text{S}} + i\tilde{z}_t^*\hat{L}$} (idR);
+
+    \draw[->] (n1) to node[midway,above] {$\omega_k\hat{N}_k$} (idR);
+    \draw[->] (n2) to node[midway,below] {$g_k\hat{N}_k\hat{b}_k^\dagger$} (idR);
+    \draw[->] (n3) to[in=-90,out=0,looseness=1] node[midway,below right] {$\hat{b}_k$} (idR);
+
+    \draw[->] (idR) to[in=-30,out=30,looseness=4] node[midway,right] {$\mathds{1}$} (idR);
+
+\end{tikzpicture}
+\end{document}

@@ -17,11 +17,13 @@ coverBCOR=11mm% binding correction for the cover - adapt accordingly
 
 \usepackage{booktabs}% for more beautiful tables
 \usepackage{cleveref}% intelligent references
-
 \usepackage{diffcoeff}
 \usepackage{amsmath}
-
 \usepackage{physics}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{pgfplots}
+
 
 %Literatur
 \usepackage[%
@@ -44,7 +46,6 @@ coverBCOR=11mm% binding correction for the cover - adapt accordingly
 % automatische Anführungszeichen
 \usepackage[autostyle=true]{csquotes}
 
-
 \title{Benchmarking a Tree Tensor Network Algorithm for the HOPS-Method to Simulate Open non-Markovian Quantum Sytems}
 
 \author{Benjamin Sappler}
@@ -54,7 +55,6 @@ coverBCOR=11mm% binding correction for the cover - adapt accordingly
 
 \examiner{Prof.\@ Dr.\@ Christian Mendl}% `Themensteller`
 \supervisor{Richard Milbradt}% `Betreuer`
-
 
 \begin{document}
 
@@ -74,22 +74,29 @@ A brief abstract of this thesis in English.
 \mainmatter{}
 
 \chapter{Introduction}
+\label{chap:Introduction}
+\input{chapters/Introduction/Introduction.tex}
 
 \chapter{Theory}
-
-\section{Non-Markovian Quantum State Diffusion (NMQSD)}
-\input{chapters/theory/NMQSD.tex}
-\section{Hierarchy Of Pure States (HOPS)}
-\input{chapters/theory/HOPS.tex}
-\section{Computing Expectation Values}
-\input{chapters/theory/ComputingExpectationValues.tex}
+\label{chap:Theory}
+\input{chapters/Theory/Theory.tex}
 
 \chapter{Implementing and testing HOPS}
+\label{chap:Implementing_HOPS}
+\input{chapters/implementing_HOPS/implementing_HOPS.tex}
 
 \chapter{Implementing and testing HOMPS}
+\label{chap:Implementing_HOMPS}
+\input{chapters/implementing_HOMPS/implementing_HOMPS.tex}
 
-\section{The BCF of the Spin-Boson model}
-\input{chapters/HOMPS/SpinBosonBCF.tex}
+\chapter{Conclusion}
+\label{chap:Conclusion}
+\input{chapters/Conclusion/Conclusion.tex}
+
+\appendix
+\chapter{Approximating the BCF of the Spin-Boson model}
+\label{app:Approximating_BCF_Spin_Boson}
+\input{chapters/Appendix/SpinBosonBCF.tex}
 
 \backmatter{}
 

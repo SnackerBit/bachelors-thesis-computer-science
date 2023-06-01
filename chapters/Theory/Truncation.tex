@@ -1,0 +1,17 @@
+When integrating the HOPS equations numerically, one has to truncate the hierarchy at some order,
+such that only a finite number of auxillary states $\Psi_t^{(\vectorbold{n})}$ remain. \\
+The most straight-forward truncation method is to set all auxillary states, for which
+one entry of the index vector exceeds a certain threshhold value $N_\text{trunc}$, to zero:
+\begin{equation*}
+    \Psi_t^{(\vectorbold{n})} = 0 \quad \Leftrightarrow \quad \exists k \colon n_k \ge N_\text{trunc}.
+\end{equation*}
+A more involved truncation method is triangular truncation, where all index vectors exceeding
+a given magnitude $M_\text{trunc}$ are set to zero:
+\begin{equation*}
+    \Psi_t^{(\vectorbold{n})} = 0 \quad \Leftrightarrow \quad \norm{\vectorbold{n}} \ge N_\text{trunc}.
+\end{equation*}
+Instead of just setting truncated auxillary states to zero one can also use so-called 
+\textit{terminators} for a better approximation of the exact hierarchy. Terminators for the
+simple and the triangular truncation method are given in \cite{Suess:2014}. However, in practice,
+just setting the truncated states to zero yiels good results as well, which is also done 
+throughout all computations in this thesis.

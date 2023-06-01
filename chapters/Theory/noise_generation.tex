@@ -1,0 +1,42 @@
+There are multiple options to generate gaussian stochastic processes with the properties (\ref{eq:stochastic_process_condition}).
+In the following, I will give three examples, which can all also be found in my repository \cite{Sappler:2023}. \\
+Firstly, one can generate the process using a complex multivariate normal distribution, which is e.g. implemented in
+the python library \verb|numpy|. The disadvantage of this method is that computing the multivariate gaussian is slow for
+large stochastic processes, which are necessary if we want to compute HOPS with a small time step. \\
+Second, one can use the method
+discussed in the appendix of \cite{Song:2016} and in the supplementary material of \cite{Gao:2022}, where the integral in the
+bath correlation function is approximated with a sum. This method generally works well, but introduces two additional parameters to tune 
+(the cutoff and step size for approximating the integral with a sum). 
+Lastly, one can use a \textit{fourier filtering} technique \cite{Ojalvo:1994}. The idea of this method is to first generate uncorrelated gaussian
+white noise, transform it to the frequency domain using a fourier transform, and multiplying with a filter. An inverse fourier transform is
+then used to go back to the time domain, creating noise with the requested correlations. \\
+Throughout my thesis, the fourier filtering technique is used to generate stochastic processes. In the following, I will explain
+the method in more detail. \\
+We start by generating complex gaussian white noise. This can for example be done with the \textbf{Box-Mueller-Wiener algorithm}:
+Given two random numbers $\xi_1, \xi_2 \in[0, 1]$ drawn from a uniform distribution, we can obtain the complex white noise $\theta$ as
+\begin{equation*}
+    \theta = \sqrt{-\log(\xi_1)} \cdot e^{2i\pi\xi_2}.
+\end{equation*}
+Our objective now is to generate a discrete stochastic process z of length $N$ with correlations
+\begin{equation*}
+    \left\langle z_t z^*_s\right\rangle = \alpha(t - s) \equiv \alpha(\tau).
+\end{equation*}
+For this, we transform the white noise $\theta_t = \left\{\theta_1, \theta_2, \dots, \theta_{N}\right\}$ into frequency space:
+\begin{equation*}
+    \hat{\theta}_k = \sum_{t=1}^{N} \theta_t e^{-\frac{2\pi i}{N}kt}.
+\end{equation*}
+Next, we construct the correlated noise in frequency space
+\begin{equation*}
+    \hat{z}_k \coloneqq \hat{\theta}_k \cdot \sqrt{\hat{\alpha}_k},
+\end{equation*}
+where we have introduced the fourier transformed bath correlation function
+\begin{equation*}
+    \hat{\alpha}_k = \sum_{n = 0}^{N} \alpha(n\cdot\Delta t) e^{-\frac{2\pi i}{N} k\Delta t}
+\end{equation*}
+with the time step $\Delta t$. To obtain the correlated noise in the time domain, we simply perform an inverse fourier transform
+\begin{equation*}
+    z_t = \frac{1}{N} \sum_{k = 1}^{N} \hat{z}_k.
+\end{equation*}
+One can show that the stochastic process $z$ fulfills the conditions (\ref{eq:stochastic_process_condition}).
+It is important to note that, because of the symmetries of the Fourier transform, only $N/2$ of the generated
+values can be used; the other half are periodically correlated with the first half. 

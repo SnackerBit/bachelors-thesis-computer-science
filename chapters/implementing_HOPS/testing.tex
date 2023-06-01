@@ -1,0 +1,19 @@
+To test my implementation of the HOPS, I use the spin boson model (\ref{eq:system_hamiltonian_SBM}) with $\Delta = 1$ and $\epsilon = 0$. 
+For the bath correlation function I use the simple expansion
+\begin{equation*}
+    \alpha(\tau) = ge^{-\omega\tau}
+\end{equation*}
+with only a single bath mode and constants $g = 2$ and $\omega = 0.5 + 2i$. The constants for the spin-boson model
+and the bath correlation function are taken from \cite{Suess:2014}. In figure \ref{fig:full_runs_HOPS}, the dynamics
+of the model is shown, computed using 100, 1000, and 10000 realizations of the stochastic process. Both linear and non-linear 
+HOPS are shown. One can directly see that the linear HOPS converges much slower. The reason for this is that the difference in 
+magnitudes of the states from different realizations of the stochastic process can be really large (see figure \ref{fig:HOPS_linear_magnitudes}).
+Because of this, most realizations do not contribute much to the stochastic expectation value, which is therefore dominated
+by only a few realizations with large magnitudes. In the non-linear HOPS, states are normalized, and thus each realization
+is weighted equally in the stochastic expectation value, leading to faster convergence.\\
+  
+
+
+\input{figures/plots/HOPS/final_runs.tex}
+\input{figures/plots/HOPS/linear_magnitudes.tex}
+\input{figures/plots/HOPS/nonlinear_convergence_N_trunc.tex}
