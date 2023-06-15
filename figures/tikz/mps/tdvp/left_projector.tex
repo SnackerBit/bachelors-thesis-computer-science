@@ -1,0 +1,40 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T1) at (0, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T2) at ({1*\dotsOffset}, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T3) at ({1*\nodedistance+1*\dotsOffset}, 0) {};
+
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T1c) at (0, -\conjOffsetVertical) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T2c) at ({1*\dotsOffset}, -\conjOffsetVertical) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T3c) at ({1*\nodedistance+1*\dotsOffset}, -\conjOffsetVertical) {};
+
+    \draw (T1) -- ++(\legwidth, 0);
+    \draw (T1) -- ++(0, \legwidth);
+    \draw (T2) -- ++(-\legwidth, 0);
+    \draw (T2) -- ++(0, \legwidth);
+    \draw (T2) -- (T3);
+    \draw (T3) -- ++(0, \legwidth);
+
+    \draw (T1c) -- ++(\legwidth, 0);
+    \draw (T1c) -- ++(0, -\legwidth);
+    \draw (T2c) -- ++(-\legwidth, 0);
+    \draw (T2c) -- ++(0, -\legwidth);
+    \draw (T2c) -- (T3c);
+    \draw (T3c) -- ++(0, -\legwidth);
+
+    \draw (T3) to[in=0, out=0, looseness = 1] (T3c);
+
+    \node[] (dots1) at (\dotsOffset/2, 0) {$\dots$};
+    \node[] (dots1) at (\dotsOffset/2, -\conjOffsetVertical) {$\dots$};
+
+    \node[] (text1) at (0, \textoffsetVertical+\legwidth/2) {$\vb*{A}_\text{L}^{[1]}$};
+    \node[] (text2) at ({1*\dotsOffset}, \textoffsetVertical+\legwidth/2) {$\vb*{A}_\text{L}^{[n-1]}$};
+    \node[] (text3) at ({1*\nodedistance+1*\dotsOffset}, \textoffsetVertical+\legwidth/2) {$\vb*{A}_\text{L}^{[n]}$};
+
+    \node[] (text1c) at (0, -\conjOffsetVertical-\textoffsetVertical-\legwidth/2) {$\vb*{A}_\text{L}^{[1]*}$};
+    \node[] (text2c) at ({1*\dotsOffset}, -\conjOffsetVertical-\textoffsetVertical-\legwidth/2) {$\vb*{A}_\text{L}^{[n-1]*}$};
+    \node[] (text3c) at ({1*\nodedistance+1*\dotsOffset}, -\conjOffsetVertical-\textoffsetVertical-\legwidth/2) {$\vb*{A}_\text{L}^{[n]*}$};
+\end{tikzpicture}
+\end{document}

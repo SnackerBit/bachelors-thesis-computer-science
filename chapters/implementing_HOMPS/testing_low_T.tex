@@ -1,0 +1,17 @@
+As a second test, I use a low temperature and high damping case of the spin-boson model (\ref{eq:system_hamiltonian_SBM}). I again use the Debye spectral
+density and set the parameters to $T = 0.02$, $\gamma = 5$, $\eta = 0.5$, $\epsilon = 2$, $\Delta = -2$, which are also used in \cite{Suess:2014,Song:2016}.
+The approximations of the bath correlation function using the Matsubara summation and Padé approximation methods are shown in Figures \ref{fig:low_T_BCF_convergence_matsubara} and \ref{fig:low_T_BCF_convergence_pade} respectively.
+At low temperatures the Padé approximation converges a lot faster than the Matsubara summation. The following computations are done with $K=13$ terms of the
+Padé approximation, which yields a sufficiently converged BCF.
+\input{figures/plots/HOMPS/BCF_convergence_low_T.tex}
+\input{figures/plots/HOMPS/homps_low_t_eps_convergence.tex}
+\newpage
+\noindent Because now multiple bath nodes are used, the MPS needs to be truncated in order to keep computation times managable. In Figure \ref{fig:homps_low_T_eps_convergence_sigma_z_and_max_bond_dim}, 
+the HOMPS equations are integrated using different values for the truncation threshhold $\epsilon_\text{SVD}$. After each Singular Value Decomposition,
+singular values smaller than the truncation threshhold are omitted. Lower threshhold values lead to larger bond dimensions, which drastically increases computation times.
+For the spin-boson model, a truncation threshhold of $\epsilon_\text{SVD} = 1.e-3$ yields good results and leads to a maximal bond dimension
+of $\chi_{\text{max}} \approx 2$.
+Finally, I integrate the HOMPS equations using 100, 1000, and 10000 realizations of the stochastic process in Figure \ref{fig:HOMPS_low_T_multiple_realizations}.
+The parameters used are $K = 13$, $N_\text{trunc} = 9$, and $\epsilon_\text{SVD} = 10^{-3}$; The integration method is RK4. The results match well the ones obtained in \cite{Suess:2014,Song:2016}.
+Note that the effect of the noise is low compared to the high temperature case (compare figure \ref{fig:homps_high_T_full_runs} and \ref{fig:HOMPS_low_T_multiple_realizations}).
+\input{figures/plots/HOMPS/final_runs_low_T.tex}

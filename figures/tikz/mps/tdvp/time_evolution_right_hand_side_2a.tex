@@ -1,0 +1,45 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth*\miniatureScale] (T1c) at (0, -\conjOffsetVertical*\miniatureScale) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth*\miniatureScale] (T2c) at ({(1*\dotsOffset)*\miniatureScale}, -\conjOffsetVertical*\miniatureScale) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth*\miniatureScale] (T3c) at ({(1*\nodedistance+1*\dotsOffset)*\miniatureScale}, -\conjOffsetVertical*\miniatureScale) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth*\miniatureScale] (T5c) at ({(4*\nodedistance+1*\dotsOffset)*\miniatureScale}, -\conjOffsetVertical*\miniatureScale) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth*\miniatureScale] (T6c) at ({(4*\nodedistance+2*\dotsOffset)*\miniatureScale}, -\conjOffsetVertical*\miniatureScale) {};
+
+    \draw (T1c) -- ++(\legwidth*\miniatureScale, 0);
+    \draw (T1c) -- ++(0, -\legwidth*\miniatureScale);
+    \draw (T2c) -- ++(-\legwidth*\miniatureScale, 0);
+    \draw (T2c) -- ++(0, -\legwidth*\miniatureScale);
+    \draw (T2c) -- (T3c);
+    \draw (T3c) -- ++(0, -\legwidth*\miniatureScale);
+    \draw (T5c) -- ++(0, -\legwidth*\miniatureScale);
+    \draw (T5c) -- ++(\legwidth*\miniatureScale, 0);
+    \draw (T6c) -- ++(0, -\legwidth*\miniatureScale);
+    \draw (T6c) -- ++(-\legwidth*\miniatureScale, 0);
+
+    \node[] (dots1) at ({(0*\nodedistance+0.5*\dotsOffset)*\miniatureScale}, -\conjOffsetVertical*\miniatureScale) {$\dots$};
+    \node[] (dots1) at ({(4*\nodedistance+1.5*\dotsOffset)*\miniatureScale}, -\conjOffsetVertical*\miniatureScale) {$\dots$};
+
+    \draw[] (T3c) to[in=-90, out=0] (\nodedistance*\miniatureScale+\dotsOffset*\miniatureScale+\legwidth*\miniatureScale, -\Heffheight/\cmscale/2*\miniatureScale);
+    \draw[] (T5c) to[in=-90, out=180] (4*\nodedistance*\miniatureScale+\dotsOffset*\miniatureScale-\legwidth*\miniatureScale, -\Heffheight/\cmscale/2*\miniatureScale);
+    \draw[] ({(2*\nodedistance+1*\dotsOffset)*\miniatureScale}, -\Heffheight/\cmscale/2*\miniatureScale) to[] ({(2*\nodedistance+1*\dotsOffset)*\miniatureScale}, {(-\conjOffsetVertical-\legwidth)*\miniatureScale});
+    \draw[] ({(3*\nodedistance+1*\dotsOffset)*\miniatureScale}, -\Heffheight/\cmscale/2*\miniatureScale) to[] ({(3*\nodedistance+1*\dotsOffset)*\miniatureScale}, {(-\conjOffsetVertical-\legwidth)*\miniatureScale});
+    
+    % MPO
+    %\node[draw, shape=rectangle, fill=Wcolor, minimum width=\nodedistance*100*\miniatureScale, minimum height=\nodewidth*\miniatureScale] (Heff) at ({(\dotsOffset+2.5*\nodedistance)*\miniatureScale}, 0) {$H_\text{eff,2}$};
+    \node[draw, shape=rectangle, fill=Wcolor, minimum width=\Heffwidth*\miniatureScale, minimum height=\Heffheight*\miniatureScale, inner sep=0] (Heff) at ({(\dotsOffset+2.5*\nodedistance)*\miniatureScale}, 0) {$H_\text{eff}^{[n,n+1]}$};
+
+    \draw[] ({(2*\nodedistance+1*\dotsOffset)*\miniatureScale}, \Heffheight/\cmscale/2*\miniatureScale) to[] ({(2*\nodedistance+1*\dotsOffset)*\miniatureScale}, \conjOffsetVertical*\miniatureScale);
+    \draw[] ({(3*\nodedistance+1*\dotsOffset)*\miniatureScale}, \Heffheight/\cmscale/2*\miniatureScale) to[] ({(3*\nodedistance+1*\dotsOffset)*\miniatureScale}, \conjOffsetVertical*\miniatureScale);
+
+    % theta
+    \node[draw, shape=ellipse, minimum width=4*\nodewidth*\miniatureScale, minimum height=1*\nodewidth*\miniatureScale, fill=Tcolor] (theta) at ({(\dotsOffset+2.5*\nodedistance)*\miniatureScale}, \conjOffsetVertical*\miniatureScale) {};
+    \node[] (thetatext) at ({(\dotsOffset+2.5*\nodedistance)*\miniatureScale}, \conjOffsetVertical*\miniatureScale+\miniatureTextOffsetVertical) {$\vb*{\theta}^{[n,n+1]}$};
+
+    \draw[] (theta.west) to[in=90, out=180] ++(-\legwidth*\miniatureScale/2, -\conjOffsetVertical*\miniatureScale+\Heffheight/\cmscale/2*\miniatureScale);
+    \draw[] (theta.east) to[in=90, out=0] ++(\legwidth*\miniatureScale/2, -\conjOffsetVertical*\miniatureScale+\Heffheight/\cmscale/2*\miniatureScale);
+    
+\end{tikzpicture}
+\end{document}

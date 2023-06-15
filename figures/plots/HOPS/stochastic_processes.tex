@@ -1,0 +1,60 @@
+\begin{figure}[!ht]
+    \def\doubleFigureWidth{6.8cm}
+    \def\doubleFigureHeight{4.635cm}
+    \definecolor{color1}{HTML}{bdd7e7}
+    \definecolor{color2}{HTML}{6baed6}
+    \definecolor{color3}{HTML}{2171b5}
+    \centering
+    \begin{subfigure}[b]{0.431\textwidth}
+        \begin{tikzpicture}[scale=1]
+            \begin{axis}[xlabel=$t$, title=$\text{Re}\left(\mathbb{E}{[z_tz_0^*]}\right)$,
+                no markers, every axis plot/.append style={very thick}, scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth,
+                ymin=-2, ymax=2.5, xmin=0, xmax=10, grid=both]
+                \addplot[color = color1]
+                table[x=t, y=z_t_z_0_c_Re, col sep=space]{figures/plots/HOPS/data/stochastic_processes_100.txt};
+                \addlegendentry{100 realizations}
+                \addplot[color = color2]
+                table[x=t, y=z_t_z_0_c_Re, col sep=space]{figures/plots/HOPS/data/stochastic_processes_1000.txt};
+                \addlegendentry{1000 realizations}
+                \addplot[color = color3]
+                table[x=t, y=z_t_z_0_c_Re, col sep=space]{figures/plots/HOPS/data/stochastic_processes_10000.txt};
+                \addlegendentry{10000 realizations}
+                %\addplot[color = color5]
+                %table[x=t, y=z_t_z_0_c_Re, col sep=space]{figures/plots/HOPS/data/stochastic_processes_100000.txt};
+                %\addlegendentry{100000 realizations}
+                \addplot[color = black, dashed]
+                table[x=t, y=alpha_Re, col sep=space]{figures/plots/HOPS/data/stochastic_processes_100.txt};
+                \addlegendentry{$\alpha(t)$}
+            \end{axis}
+        \end{tikzpicture}   
+    \end{subfigure}\hspace{0.05\textwidth}
+    \centering
+    \begin{subfigure}[b]{0.431\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1]
+            \begin{axis}[xlabel=$t$, title=$\text{Im}\left(\mathbb{E}{[z_tz_0^*]}\right)$, yticklabels={,,},
+                no markers, every axis plot/.append style={very thick}, scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth,
+                ymin=-2, ymax=2.5, xmin=0, xmax=10, grid=both]
+                \addplot[color = color1]
+                table[x=t, y=z_t_z_0_c_Im, col sep=space]{figures/plots/HOPS/data/stochastic_processes_100.txt};
+                %\addlegendentry{100 realizations}
+                \addplot[color = color2]
+                table[x=t, y=z_t_z_0_c_Im, col sep=space]{figures/plots/HOPS/data/stochastic_processes_1000.txt};
+                %\addlegendentry{1000 realizations}
+                \addplot[color = color3]
+                table[x=t, y=z_t_z_0_c_Im, col sep=space]{figures/plots/HOPS/data/stochastic_processes_10000.txt};
+                %\addlegendentry{10000 realizations}
+                %\addplot[color = color5]
+                %table[x=t, y=z_t_z_0_c_Im, col sep=space]{figures/plots/HOPS/data/stochastic_processes_100000.txt};
+                %\addlegendentry{100000 realizations}
+                \addplot[color = black, dashed]
+                table[x=t, y=alpha_Im, col sep=space]{figures/plots/HOPS/data/stochastic_processes_100.txt};
+                %\addlegendentry{$\alpha(t)$}
+            \end{axis}
+        \end{tikzpicture}   
+    \end{subfigure}
+    \caption{The real and imaginary parts of the expectation value $\mathbb{E}{[z_tz_0^*]}$ of the stochastic process used for
+    testing HOPS with the spin-boson model are computed from 100, 1000, and 10000 realizations. One can see that the correlations
+    approach the bath correlation function $\alpha(\tau)$ (\ref{eq:simple_hops_BCF}) with $g = 2$ and $\omega = 0.5 + 2i$.}
+    \label{fig:stochastic_processes} 
+\end{figure}

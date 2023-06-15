@@ -1,22 +1,20 @@
-\begin{figure}[h]
+\begin{figure}[!ht]
     \centering
-    \begin{tikzpicture}[scale=1, trim axis left]
-        \definecolor{color1}{HTML}{deebf4}
-        \definecolor{color2}{HTML}{b3d1e7}
-        \definecolor{color3}{HTML}{8ab7d9}
-        \definecolor{color4}{HTML}{629ccb}
-        \definecolor{color5}{HTML}{3182bd}
+    \begin{tikzpicture}[scale=1, trim axis left, trim axis right]
+        \definecolor{color}{HTML}{3182bd}
+        \def\singleFigureWidth{0.5\textwidth}
+        \def\singleFigureHeight{0.309\textwidth}
 
         \begin{semilogxaxis}[xlabel=$\norm{\Psi_i}$, ylabel=$N$, area style, %xtick style={draw=none},
-            ytick pos=left, ymin=0, scale only axis, width=0.6\textwidth, height=5cm]
+            ytick pos=left, ymin=0, scale only axis, height=\singleFigureHeight, width=\singleFigureWidth]
 
-            \addplot+[ybar interval, mark=no, fill=color5, color=color5]
+            \addplot+[ybar interval, mark=no, fill=color, color=color]
             table[x=magnitude, y=count, col sep=space]{figures/plots/HOPS/data/simple_hops_linear_magnitudes.txt};
 
         \end{semilogxaxis}
     \end{tikzpicture}   
-    \label{fig:HOPS_linear_magnitudes} 
     \caption{The magnitudes of states from 10000 linear HOPS realizations of the spin-boson model are shown in a histogram. There are
     big differences in the magnitudes of the different realizations, which leads to the problem that states with small magnitudes
     do not contribute much to the overall expectation value and can therefore be seen as wasted computation time.}
+    \label{fig:HOPS_linear_magnitudes} 
 \end{figure}

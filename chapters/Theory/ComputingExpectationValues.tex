@@ -1,25 +1,27 @@
-Both in linear and non-linear HOPS the density matrix of the system is computed by
-averaging over multiple realizations of pure states, see equations 
+In both the linear and the non-linear HOPS methods the density matrix of the system is computed by
+averaging over multiple realizations of pure states, see Equations 
 (\ref{eq:averaging_states_linear}) and (\ref{eq:averaging_states_nonlinear}).
-However, mostly one is not interested in the density matrix directly, but in 
-the expectation value of a given operator $\hat{A}$. In linear HOPS, the average
-is taken over unnormalized states, and thus the expectation value can be computed as
+However, one is mostly not interested in the density matrix directly, but in 
+the expectation value of a given system operator $\hat{A}$. In linear HOPS, the average
+is taken over unnormalized states, and thus the expectation value is calculated as
 \begin{equation}
-    \left\langle\hat{A}\right\rangle_t 
+    \label{eq:stochastic_expectation_value_linear}
+    \mathbb{E}\left[\langle\hat{A}\rangle_t\right]
     = \frac{\trace\left\{\rho(t)\hat{A}\right\}}{\trace\left\{\rho(t)\right\}}
     \approx \frac{\trace\left\{\frac{1}{N}\sum_{i=1}^{N}\ket*{\Psi_t(z^*_i)}\bra*{\Psi_t(z^*_i)}\hat{A}\right\}}
     {\trace\left\{\frac{1}{N}\sum_{i=1}^{N}\ket*{\Psi_t(z^*_i)}\bra*{\Psi_t(z^*_i)}\right\}}
     = \frac{\sum_{i=1}^{N}\bra*{\Psi_t(z^*_i)}\hat{A}\ket*{\Psi_t(z^*_i)}}
     {\sum_{i=1}^{N}\bra*{\Psi_t(z^*_i)}\ket*{\Psi_t(z^*_i)}},
 \end{equation}
-where we denote different realizations $i$ of the stochastic process with $z^*_i, i=0,\dots,N$ and we used the
+where we denote different realizations $i$ of the stochastic process with $z^*_i$, $i=0,\dots,N$ and we used the
 cyclic property of the trace.
 \\
 In non-linear HOPS the average is taken over normalized states $\ket*{\widetilde{\Psi}_t\left(z^*\right)}$ instead,
-and thus it holds $\text{tr}\left\{\rho\right\} = 1$. The expectation value can then be
+and thus it holds \\
+$\text{tr}\left\{\rho\right\} = 1$. The expectation value can then be
 computed as
-\begin{equation}
-    \left\langle\hat{A}\right\rangle_t 
-    = \frac{\trace{\rho(t)\hat{A}}}{\trace{\rho(t)}}
-    \approx \frac{1}{N}\sum_{i=1}^{N} \bra*{\Psi_t(z^*_i)} \hat{A} \ket*{\Psi_t(z^*_i)}
-\end{equation}
+\begin{equation*}
+    \mathbb{E}\left[\langle\hat{A}\rangle_t\right]
+    = \frac{\trace\left\{\rho(t)\hat{A}\right\}}{\trace\left\{\rho(t)\right\}}
+    \approx \frac{1}{N}\sum_{i=1}^{N} \bra*{\widetilde{\Psi}_t(z^*_i)} \hat{A} \ket*{\widetilde{\Psi}_t(z^*_i)}.
+\end{equation*}

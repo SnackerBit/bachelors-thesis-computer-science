@@ -1,16 +1,21 @@
-Open quantum systems, ie. quantum systems that are interacting with an environment, are important for modelling many complex
-processes, like the decoherence of quantum computers and processes in the field of chemical physics.
-Most of the time, these systems cannot be described analytically, but only numerically. Thus, the field of open quantum system
+Open quantum systems, i.e., quantum systems that are interacting with an environment, are important for modelling many complex
+processes, including the decoherence of quantum computers and many processes in the field of chemical physics.
+Most often, these systems cannot be described analytically, but only numerically. Thus, the field of open quantum system
 simulation is very important.\\
+In many cases, the dynamics of an open quantum system can be described with a Markov approximation, where the state of the environment
+is assumed to only depend on the current state of the system. However, in many interesting situations (for example involving short length scales
+and high energies), the Markov approximation fails. The environment develops a memory and depends on previous states of the system as well.\\
 A popular approach for the simulation of open quantum systems is the Hierarchy Of Pure States (HOPS) \cite{Suess:2014}.
-With HOPS, one can integrate the non-Markovian quantum state diffusion equation and simulate non-markovian open quantum systems.
-Recently, it was shown that the popular Matrix Product State formalism can be used to derive a Hierarchy Of Matrix Pure States (HOMPS),
+With the HOPS, one can integrate the non-Markovian quantum state diffusion equation and simulate non-Markovian open quantum systems.
+Recently it was shown \cite{Gao:2022} that the popular Matrix Product State formalism can be used to derive a Hierarchy Of Matrix Pure States (HOMPS),
 which can drastically improve the memory requirements for HOPS. \\
-The goal of this thesis is to implement and benchmark both HOPS and HOMPS in detail. I start by giving a derivation of HOPS
-from the non-markovian quantum state diffusion equation in section \ref{chap:HOPS}. Next, I explain in detail how HOPS can be implemented and
-test the method on the spin boson model in section \ref{chap:Implementing_HOMPS}. In section \ref{chap:Implementing_HOMPS}, i derive and implement
-HOMPS, and test it on the spin boson model as well. Finally, I give a conclusion and some references on how to further improve the methods in
-section \ref{chap:Conclusion}.
+The goal of this thesis is to implement and benchmark both the HOPS method and the HOMPS method in detail. I start by summarizing the theory
+which is necessary for understanding both methods in Section \ref{chap:Theory}. This includes the derivation of the HOPS from the non-Markovian
+quantum state diffusion equation in Section \ref{sec:HOPS_Derivation} and a brief introduction of Matrix Product States and Matrix Product Operators 
+in Section \ref{sec:MPS_Introduction}. 
+Next, I explain in detail how the HOPS method can be implemented and test my implementation on the spin-boson model in Section \ref{chap:Implementing_HOPS}.
+In Section \ref{chap:Implementing_HOMPS}, I then derive and implement the HOMPS method, and test it on the spin-boson model as well. 
+Finally, I give a conclusion and some references on how to further improve the methods in Section \ref{chap:Conclusion}.
 \\
 My implementation of both HOPS and HOMPS, including the code that was used to generate all plots in this thesis, is openly available
 under \cite{Sappler:2023}.

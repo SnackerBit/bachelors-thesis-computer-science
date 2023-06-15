@@ -1,0 +1,14 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T1) at (0, 0) {};
+    \node[] (text1) at (0, \textoffsetVertical) {$\vb*{A}^{[n]}$};
+    \draw (T1) -- ++(-\legwidth, 0);
+    \draw (T1) -- ++(0, -\legwidth);
+    \draw (T1) -- ++(\legwidth, 0);
+    \node[anchor=east] at (-\legwidth, 0) {$a_{n-1}$};
+    \node[anchor=west] at (+\legwidth, 0) {$a_{n}$};
+    \node[anchor=north] at (0, -\legwidth) {$l_{n}$};
+\end{tikzpicture}
+\end{document}

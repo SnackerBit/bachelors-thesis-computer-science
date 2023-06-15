@@ -1,19 +1,28 @@
-To test my implementation of the HOPS, I use the spin boson model (\ref{eq:system_hamiltonian_SBM}) with $\Delta = 1$ and $\epsilon = 0$. 
+To test my implementation of the HOPS, I use the spin-boson model (\ref{eq:system_hamiltonian_SBM}) with $\Delta = 1$ and $\epsilon = 0$. 
 For the bath correlation function I use the simple expansion
-\begin{equation*}
+\begin{equation}
+    \label{eq:simple_hops_BCF}
     \alpha(\tau) = ge^{-\omega\tau}
-\end{equation*}
+\end{equation}
 with only a single bath mode and constants $g = 2$ and $\omega = 0.5 + 2i$. The constants for the spin-boson model
-and the bath correlation function are taken from \cite{Suess:2014}. In figure \ref{fig:full_runs_HOPS}, the dynamics
-of the model is shown, computed using 100, 1000, and 10000 realizations of the stochastic process. Both linear and non-linear 
-HOPS are shown. One can directly see that the linear HOPS converges much slower. The reason for this is that the difference in 
-magnitudes of the states from different realizations of the stochastic process can be really large (see figure \ref{fig:HOPS_linear_magnitudes}).
-Because of this, most realizations do not contribute much to the stochastic expectation value, which is therefore dominated
-by only a few realizations with large magnitudes. In the non-linear HOPS, states are normalized, and thus each realization
-is weighted equally in the stochastic expectation value, leading to faster convergence.\\
-  
-
-
+and the bath correlation function are taken from \cite{Suess:2014}. I begin by testing the generation of the stochastic
+process. For this, 100, 1000, and 10000 realizations of the stochastic process are generated. The expectation value
+$\mathbb{E}{[z_tz_0]}$ is then computed and shown in Figure \ref{fig:stochastic_processes}.
+One can see that the expectation value approaches the bath correlation function as the number of realizations is increased,
+meaning Condition (\ref{eq:stochastic_process_condition}) is well fulfilled.
+\input{figures/plots/HOPS/stochastic_processes.tex}
 \input{figures/plots/HOPS/final_runs.tex}
+\newpage
+\noindent Next, I integrate both the linear and non-linear HOPS as detailed in Section \ref{sec:implementing_HOPS}. I use $N_\text{trunc} = 8$
+and a time step of $\Delta t = 0.02$. The expectation value
+$\mathbb{E}\left\lbrack\langle\hat{\sigma}_z\rangle\right\rbrack$ is then computed by averaging over 100, 1000, and 1000 realizations.
+The result is shown in Figure \ref{fig:full_runs_HOPS}.
+One can directly see that the linear HOPS converges much slower than the non-linear HOPS. The reason for this is that the states from different
+realizations of the noise have strongly different magnitudes, as can be seen in Figure \ref{fig:HOPS_linear_magnitudes}. When computing the stochastic expectation value for linear HOPS (\ref{eq:stochastic_expectation_value_linear}),
+states with small magnitudes do not contribute much to the result. The expectation value is thus dominated by only a few states
+with large magnitudes, which leads to slow convergence. In contrast, the states in the non-linear
+HOPS are normalized, avoiding the problem and leading to faster convergence. \\
+The convergence of the non-linear HOPS method with respect to the truncation dimension $N_\text{trunc}$ is shown in Figure \ref{fig:HOPS_nonlinear_convergence}.\\
+My results match well the ones obtained in \cite{Suess:2014}.
 \input{figures/plots/HOPS/linear_magnitudes.tex}
 \input{figures/plots/HOPS/nonlinear_convergence_N_trunc.tex}

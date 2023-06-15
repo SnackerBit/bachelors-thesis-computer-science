@@ -1,62 +1,56 @@
-\begin{figure}[h]
-    \begin{subfigure}[b]{0.495\textwidth}
+\begin{figure}[!ht]
+    \def\doubleFigureWidth{6.8cm}
+    \def\doubleFigureHeight{4.635cm}
+    \definecolor{color1}{HTML}{bdd7e7}
+    \definecolor{color2}{HTML}{6baed6}
+    \definecolor{color3}{HTML}{2171b5}
+    \centering
+    \begin{subfigure}[b]{0.471\textwidth}
         \begin{tikzpicture}[scale=1]
-            \definecolor{color1}{HTML}{deebf4}
-            \definecolor{color2}{HTML}{b3d1e7}
-            \definecolor{color3}{HTML}{8ab7d9}
-            \definecolor{color4}{HTML}{629ccb}
-            \definecolor{color5}{HTML}{3182bd}
-
-            \begin{axis}[xlabel=$t$, ylabel=$\left\langle\sigma_z\right\rangle$, title=linear HOPS,
+            \begin{axis}[xlabel=$t$, ylabel=$\mathbb{E}\left\lbrack\langle\hat{\sigma}_z\rangle\right\rbrack$, title=linear HOPS,
                 grid=both, xmin=0, xmax=50, ymin=-1, ymax=1, no markers, 
-                every axis plot/.append style={very thick}]
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth]
 
                 \addplot[color = color1]
                 table[x=t, y=sigma_z_100, col sep=space]{figures/plots/HOPS/data/simple_hops_linear_multiple_realizations.txt};
                 %\addlegendentry{100 realizations}
 
-                \addplot[color = color3]
+                \addplot[color = color2]
                 table[x=t, y=sigma_z_1000, col sep=space]{figures/plots/HOPS/data/simple_hops_linear_multiple_realizations.txt};
                 %\addlegendentry{1000 realizations}
 
-                \addplot[color = color5]
+                \addplot[color = color3]
                 table[x=t, y=sigma_z_10000, col sep=space]{figures/plots/HOPS/data/simple_hops_linear_multiple_realizations.txt};
                 %\addlegendentry{10000 realizations}
-
             \end{axis}
         \end{tikzpicture}   
-    \end{subfigure}
-    \begin{subfigure}[b]{0.495\textwidth}
+    \end{subfigure}\hspace{0.05\textwidth}
+    \centering
+    \begin{subfigure}[b]{0.471\textwidth}
         \centering
         \begin{tikzpicture}
-            \definecolor{color1}{HTML}{deebf4}
-            \definecolor{color2}{HTML}{b3d1e7}
-            \definecolor{color3}{HTML}{8ab7d9}
-            \definecolor{color4}{HTML}{629ccb}
-            \definecolor{color5}{HTML}{3182bd}
-
             \begin{axis}[xlabel=$t$, yticklabels={,,}, legend pos=south east, title=non-linear HOPS,
                 grid=both, xmin=0, xmax=50, ymin=-1, ymax=1, no markers, 
-                every axis plot/.append style={very thick}]
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth]
 
                 \addplot[color = color1]
                 table[x=t, y=sigma_z_100, col sep=space]{figures/plots/HOPS/data/simple_hops_nonlinear_multiple_realizations.txt};
                 \addlegendentry{100 realizations}
 
-                \addplot[color = color3]
+                \addplot[color = color2]
                 table[x=t, y=sigma_z_1000, col sep=space]{figures/plots/HOPS/data/simple_hops_nonlinear_multiple_realizations.txt};
                 \addlegendentry{1000 realizations}
 
-                \addplot[color = color5]
+                \addplot[color = color3]
                 table[x=t, y=sigma_z_10000, col sep=space]{figures/plots/HOPS/data/simple_hops_nonlinear_multiple_realizations.txt};
                 \addlegendentry{10000 realizations}
-
             \end{axis}
         \end{tikzpicture}   
     \end{subfigure}
-    \label{fig:full_runs_HOPS} 
-    \caption{In this figure, the dynamics of the spin-boson model are computed using the HOPS. The stochastic expectation value of the $\sigma_z$ operator is
+    \caption{The dynamics of the spin-boson model are computed using the HOPS method. The stochastic expectation value of the $\hat{\sigma}_z$ operator is
     plotted against the time. The expectation value is taken over 100, 1000, and 10000 realizations of the stochastic processes. Both the linear (left) and the non-linear (right)
-    HOPS was used. The time steps for all realizations was chosen as $\Delta t = 0.05$. The parameters for the spin-boson model are
-    given in the text. The  HOPS was truncated using simple truncation with $N_\text{trunc} = 8$.}
+    HOPS was used. The time steps for all realizations was chosen as $\Delta t = 0.05$. The parameters for the spin-boson model are $\Delta = 1$ and $\epsilon = 0$. The  HOPS was truncated using simple truncation (\ref{eq:simple_truncation}) with $N_\text{trunc} = 8$.}
+    \label{fig:full_runs_HOPS} 
 \end{figure}

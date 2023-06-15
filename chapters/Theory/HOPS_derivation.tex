@@ -1,4 +1,4 @@
-The NMQSD equation (\ref{eq:non_markovian_schroedinger_equation})
+The NMQSD Equation (\ref{eq:non_markovian_schroedinger_equation})
 cannot easily be solved numerically due to the functional derivative.
 However, one can bring the equation into a hierarchically structured
 set of differential equations, the Hierarchy of Pure States (HOPS) \cite{Suess:2014},
@@ -12,24 +12,23 @@ We will start by approximating the bath correlation function (BCF) (\ref{eq:bath
 with constants $g_k$ and $\omega_k$. The total number of terms $K$ corresponds
 to the number of harmonic oscillators coupling to the system. Such an approximation
 of the bath correlation function is possible for many systems of interest, and a specific
-example is given in appendix \ref{app:Approximating_BCF_Spin_Boson}, where we approximate the BCF of the spin-boson model
-using a Matsubara expansion.
+example is given in Appendix \ref{app:Approximating_BCF_Spin_Boson}, where we approximate the BCF of the spin-boson model
+using two different expansion methods.
 \\
 We will work with the discrete version of the NMQSD equation \cite{Hartmann:2021}
 \begin{equation}
     \label{eq:discrete_NMQSD_equation}
     \Psi_{t+1} = \Psi_t + \Delta \cdot \left\{
-        -iH_\text{S} + \hat{L}z_{t}^* - \hat{L}^\dagger \sum_{s=0}^{t-1} \alpha\left(t\Delta-s\Delta\right)\frac{\partial}{\partial z_{s}^*}
+        -i\hat{H}_\text{S} + \hat{L}z_{t}^* - \hat{L}^\dagger \sum_{s=0}^{t-1} \alpha\left((t-s)\cdot\Delta\right)\frac{\partial}{\partial z_{s}^*}
     \right\} \Psi_t,
 \end{equation}
-where $t, s \in \mathbb{N}_0$, we introduced the time step $\Delta$, and $z \coloneqq \left\{z_{1}, z_{2},\dots\right\}$
-now is a discrete stochastic process. One can easily see that the NMQSD equation (\ref{eq:non_markovian_schroedinger_equation}) 
+where $z_t$ with $t \in \mathbb{N}_0$ now is a discrete stochastic process and we introduced the time step $\Delta \in \mathbb{R}_{>0}$. One can easily see that the NMQSD equation (\ref{eq:non_markovian_schroedinger_equation}) 
 is recovered if the limit $\Delta\rightarrow0$ is taken. The reason for using the discrete version of the NMQSD equation
-is that we can replace the functional derivative with an ordinary derivative, making the derivation much more intuitive.
+is that we can replace the functional derivative with an ordinary derivative, simplifying the following derivation.
 \\
 We define the operator
 \begin{equation*}
-    D_k^t \coloneqq \sum_{s=0}^{t-1} \alpha_k\left(t\Delta - s\Delta\right) \frac{\partial}{\partial z_s^*}
+    D_k^t \coloneqq \sum_{s=0}^{t-1} \alpha_k\left((t-s)\cdot\Delta\right) \frac{\partial}{\partial z_s^*}
     = g_k \sum_{s=0}^{t-1} e^{-\omega_k\left(t-s\right)\cdot\Delta}
     \frac{\partial}{\partial z_s^*}
 \end{equation*}
@@ -40,26 +39,26 @@ and the auxillary states
 \end{equation}
 using an index vector $\vectorbold{n}\in\mathbb{N}_0^{K}$. The physical pure state is
 recovered when setting the index vector to zero, $\Psi_n = \Psi_n^{(\vectorbold{0})}$.
-Using these definitions, we can rewrite the discrete NMQSD equation (\ref{eq:discrete_NMQSD_equation}):
+Using these definitions, we can rewrite the discrete NMQSD Equation (\ref{eq:discrete_NMQSD_equation}):
 \begin{equation*}
     \Psi_{t+1}^{(\vectorbold{0})} = \Psi_{t}^{(\vectorbold{0})} + \Delta \cdot \left(
-        -iH_\text{S} + \hat{L}z_t^* - \hat{L}^\dagger\sum_{k=1}^{K}D_k^t
+        -i\hat{H}_\text{S} + \hat{L}z_t^* - \hat{L}^\dagger\sum_{k=1}^{K}D_k^t
     \right) \Psi_{t}^{(\vectorbold{0})}
     = \Psi_{t}^{(\vectorbold{0})} + \Delta \cdot \left(
-        -iH_\text{S} + \hat{L}z_t^*
-    \right) \Psi_{t}^{(\vectorbold{0})} - \hat{L}^\dagger\sum_{k=1}^{K}\Psi_t^{(\vectorbold{0}+\vectorbold{e}_k)},
+        -i\hat{H}_\text{S} + \hat{L}z_t^*
+    \right) \Psi_{t}^{(\vectorbold{0})} - \Delta\cdot\hat{L}^\dagger\sum_{k=1}^{K}\Psi_t^{(\vectorbold{0}+\vectorbold{e}_k)},
 \end{equation*}
 where $\vectorbold{e}_k$ is the $k$th unit vector.
 \\
 Our next goal is to derive an equation of motion for an arbitrary auxillary state $\Psi_t^{(\vectorbold{n})}$.
-Using equation (\ref{eq:definition_of_auxillary_states}) we can write
+Using Equation (\ref{eq:definition_of_auxillary_states}), we can write
 \begin{equation}
     \label{eq:auxillary_state_np1}
     \Psi_{t+1}^{(\vectorbold{n})} = \prod_{k=1}^{K} \left(D_k^{t+1}\right)^{n_k} \Psi_{t+1}.
 \end{equation}
 We can expand
 \begin{equation*}
-    D_k^{t+1} = \left(1-\omega_k\cdot\Delta\right)\left(g_k\frac{\partial}{\partial z_t^*} + D_k^t\right) + O\left(\Delta^2\right)
+    D_k^{t+1} = \left(1-\omega_k\Delta\right)\left(g_k\frac{\partial}{\partial z_t^*} + D_k^t\right) + O\left(\Delta^2\right)
 \end{equation*}
 and hence
 \begin{equation*}
@@ -67,30 +66,31 @@ and hence
     \left(1-n_k\omega_k\Delta\right)
     \left(g_k\frac{\partial}{\partial z_t^*} + D_k^t\right)^{n_k} + O\left(\Delta^2\right).
 \end{equation*}
-To further simplify equation (\ref{eq:auxillary_state_np1}), we can use the fact that the state
+To further simplify Equation (\ref{eq:auxillary_state_np1}), we can use the fact that the state
 at time $t$, $\Psi^{(\vectorbold{n})}_t$, depends only on the stochastic variables $z_1, z_2, \dots, z_{t-1}$, but not
 on $z_t$, which we can write as $\Psi^{(\vectorbold{n})}_t=\Psi^{(\vectorbold{n})}\left(z|_0^{t-1}\right)$. It follows that
-$\frac{\partial}{\partial z_t^*}\Psi^{(\vectorbold{n})}_t = 0$. Using equation (\ref{eq:discrete_NMQSD_equation})
+$\frac{\partial}{\partial z_t^*}\Psi^{(\vectorbold{n})}_t = 0$. Using Equation (\ref{eq:discrete_NMQSD_equation})
 we can see $\frac{\partial^2}{\partial z_t^{*2}}\Psi^{(\vectorbold{n})}_{t+1} = 0$ and therefore
 \begin{equation}
     \label{eq:simplification_of_D_psi_np1}
     \left(D_k^{t+1}\right)^{n_k} \Psi_{t+1} = \left(1-n_k\omega_k\Delta\right)
-    \left(n_k g_k \left(D_k^t\right)^{n_k-1}\frac{\partial}{\partial z_t^*} + \left(D_k^t\right)^{n_k}\right) + O\left(\Delta^2\right).
+    \left(n_k g_k \left(D_k^t\right)^{n_k-1}\frac{\partial}{\partial z_t^*} + \left(D_k^t\right)^{n_k}\right) \Psi_{t+1} + O\left(\Delta^2\right).
 \end{equation}
-Inserting equations (\ref{eq:discrete_NMQSD_equation}) and (\ref{eq:simplification_of_D_psi_np1}) into equation (\ref{eq:auxillary_state_np1}) and performing some
+Inserting Equations (\ref{eq:discrete_NMQSD_equation}) and (\ref{eq:simplification_of_D_psi_np1}) into Equation (\ref{eq:auxillary_state_np1}) and performing some
 additional algebra, one arrives at
 \begin{equation*}
     \Psi_{t+1}^{(\vectorbold{n})} = \Psi_t^{(\vectorbold{n})} + \Delta\cdot\left(
-        -iH_\text{S} - \vectorbold{n}\cdot\boldsymbol{\omega} + \hat{L}z_t^*
+        -i\hat{H}_\text{S} - \vectorbold{n}\cdot\boldsymbol{\omega} + \hat{L}z_t^*
     \right) \Psi_t^{(\vectorbold{n})}
     + \Delta \cdot \hat{L}\sum_{k=1}^{K}n_kg_k\Psi_t^{(\vectorbold{n}-\vectorbold{e}_k)}
-    - \Delta \cdot \hat{L}^\dagger\sum_{k=1}^{K}\Psi_t^{(\vectorbold{n}+\vectorbold{e}_k)}.
+    - \Delta \cdot \hat{L}^\dagger\sum_{k=1}^{K}\Psi_t^{(\vectorbold{n}+\vectorbold{e}_k)},
 \end{equation*}
-Performing the limit $\Delta \rightarrow 0$, we obtain the linear HOPS equation for a system coupled to $K$ bath modes:
+where we have omitted terms of order $O\left(\Delta^2\right)$.
+Taking the limit $\Delta \rightarrow 0$, we obtain the linear HOPS equations for a system coupled to $K$ bath modes:
 \begin{equation}
     \label{eq:linear_HOPS_single_site}
     \frac{\partial}{\partial t}\Psi_t^{(\vectorbold{n})} = \left(
-        -iH_\text{S} - \vectorbold{n}\cdot\boldsymbol{\omega} + \hat{L}z_t^*
+        -i\hat{H}_\text{S} - \vectorbold{n}\cdot\boldsymbol{\omega} + \hat{L}z_t^*
     \right) \Psi_t^{(\vectorbold{n})}
     + \hat{L}\sum_{k=1}^{K}n_kg_k\Psi_t^{(\vectorbold{n}-\vectorbold{e}_k)}
     - \hat{L}^\dagger\sum_{k=1}^{K}\Psi_t^{(\vectorbold{n}+\vectorbold{e}_k)}.

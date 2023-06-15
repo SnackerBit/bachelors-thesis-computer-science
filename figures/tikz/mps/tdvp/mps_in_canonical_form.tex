@@ -1,0 +1,36 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T1) at (0, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (Tmm1) at (\dotsOffset, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (Tm) at ({\dotsOffset+1*\nodedistance*1.2}, 0) {};
+    \node[draw, shape=diamond, fill=Tcolor, minimum width=\nodewidth] (C) at ({\dotsOffset+1*\nodedistance*1.2+\nodedistance}, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (Tmp1) at ({\dotsOffset+1*\nodedistance*1.2+\nodedistance*2}, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (Tmp2) at ({\dotsOffset+2*\nodedistance*1.2+\nodedistance*2}, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (TN) at ({2*\dotsOffset+2*\nodedistance*1.2+\nodedistance*2}, 0) {};
+
+    \node[] (dots1) at (\dotsOffset/2, 0) {$\dots$};
+    \node[] (dots1) at ({\dotsOffset+2*\nodedistance*1.2+\dotsOffset/2+\nodedistance*2}, 0) {$\dots$};
+
+    \node[] (text1) at (0, \textoffsetVertical) {$\vb*{A}_{\text{L}}^{[1]}$};
+    \node[] (text2) at (\dotsOffset, \textoffsetVertical) {$\vb*{A}_{\text{L}}^{[m-1]}$};
+    \node[] (text3) at ({\dotsOffset+1*\nodedistance*1.2}, \textoffsetVertical) {$\vb*{A}_{\text{L}}^{[m]}$};
+    \node[] (text4) at ({\dotsOffset+1*\nodedistance*1.2+\nodedistance}, \textoffsetVertical) {$\vb*{C}^{[m]}$};
+    \node[] (text5) at ({\dotsOffset+1*\nodedistance*1.2+\nodedistance*2}, \textoffsetVertical) {$\vb*{A}_{\text{R}}^{[m+1]}$};
+    \node[] (text6) at ({\dotsOffset+2*\nodedistance*1.2+\nodedistance*2}, \textoffsetVertical) {$\vb*{A}_{\text{R}}^{[m+2]}$};
+    \node[] (text7) at ({2*\dotsOffset+2*\nodedistance*1.2+\nodedistance*2}, \textoffsetVertical) {$\vb*{A}_{\text{R}}^{[N]}$};
+
+    \draw (T1) -- ++(0, -\legwidth);
+    \draw (Tmm1) -- ++(0, -\legwidth);
+    \draw (Tm) -- ++(0, -\legwidth);
+    \draw (Tmp1) -- ++(0, -\legwidth);
+    \draw (Tmp2) -- ++(0, -\legwidth);
+    \draw (TN) -- ++(0, -\legwidth);
+    \draw (T1) -- ++(\legwidth, 0);
+    \draw (Tmm1) -- ++(-\legwidth, 0);
+    \draw (Tmp2) -- ++(\legwidth, 0);
+    \draw (TN) -- ++(-\legwidth, 0);
+    \draw (Tmm1) -- (Tm) -- (C) -- (Tmp1) -- (Tmp2);
+\end{tikzpicture}
+\end{document}

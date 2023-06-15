@@ -1,0 +1,11 @@
+To compute the memory term
+\begin{equation*}
+    z_\text{memory}^*(t) \coloneqq \int_0^t \alpha^*(t-s) \left\langle L^\dagger\right\rangle_s \text{ds}
+    \approx \sum_{k=1}^{K} \int_0^t g_k e^{-\omega_k} \left\langle L^\dagger\right\rangle_s \text{ds}
+\end{equation*}
+in the "shifted" noise (\ref{eq:memory_term_nonlinear_HOPS}) for $K > 1$ bath modes, we first split it into
+$K$ terms
+\begin{equation*}
+    z_\text{memory}^*(t) = \sum_{k=1}^{K} z_{\text{memory},k}^*(t), \quad z_{\text{memory},k}^*(t) \coloneqq \int_0^t g_k e^{-\omega_k} \left\langle L^\dagger\right\rangle_s \text{ds}.
+\end{equation*}
+Each of the terms $z_{\text{memory},k}^*(t)$ can then be updated similar to (\ref{eq:memory_update_single_bath_node}).

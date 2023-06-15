@@ -1,4 +1,4 @@
-In this thesis we will only implement HOPS for a single bath mode, $K = 1$. 
+In this thesis we only implement HOPS for a single bath mode, $K = 1$. 
 The implementation for $K > 1$ follows analogeously, but with more involved book-keeping.
 If we only use a single bath mode, we can use a scalar index $n$ instead of a vector index $\vectorbold{n}$ to
 distinguish between the different auxillary states $\Psi_t^n$. We can store all auxillary states in
@@ -9,16 +9,16 @@ a single vector
     \Psi_t^{(0)} \\
     \Psi_t^{(1)} \\
     \vdots \\
-    \Psi_t^{(K-1)} \\
+    \Psi_t^{(N_\text{trunc}-1)} \\
     \end{pmatrix}.
 \end{equation*}
 Both the linear and the non-linear HOPS equations can be integrated by using regular numerical integration schemes,
-eg. Euler or Runge-Kutta. In this thesis, I choose a Runge-Kutta method of fourth order. Given the differential equation
+e.g., Euler or other Runge-Kutta methods. In this thesis, I choose a Runge-Kutta method of fourth order. Given the differential equation
 \begin{equation}
     \label{eq:Runge_Kutta}
     \frac{\text{d}}{\text{d}t} \vb{\Psi} = \vb{f}(t, \vb{\Psi})
 \end{equation}
-and the state $\vb{\Psi_t}$ at time $t$, the state at time $t + Delta t$ can be computed as
+and the state $\vb{\Psi_t}$ at time $t$, the state at time $t + \Delta t$ can be computed as
 \begin{equation*}
     \vb{\Psi_{t+\Delta t}} = \vb{\Psi_t} + \frac{1}{6}\left(\vb{k_1} + 2\vb{k_2} + 2\vb{k_3} + \vb{k_4}\right)\cdot \Delta t
 \end{equation*}
@@ -33,23 +33,23 @@ where
 \end{equation*}
 
 \subsection*{Linear HOPS}
-For implementing linear HOPS it is a good idea to split the right hand side of equation (\ref{eq:Runge_Kutta}) into a "linear" and a "noise" part:
-\begin{equation}
-    f_k\left(t, \vb{\Psi_t}\right) = \left(\vb*{M_\text{linear}} + \tilde{z}_t^* \cdot \vb*{M_\text{noise}} \right) \vb{\Psi_t},
-\end{equation}
+For implementing linear HOPS it is a good idea to split the right hand side of Equation (\ref{eq:Runge_Kutta}) into a "linear" and a "noise" part:
+\begin{equation*}
+    f_k\left(t, \vb{\Psi_t}\right) = \left(\vb*{M}_\text{linear} + \tilde{z}_t^* \cdot \vb*{M}_\text{noise} \right) \vb{\Psi_t},
+\end{equation*}
 where we have defined the linear propagator
 \begin{equation*}
-    \vb{M_\text{linear}} =
+    \vb{M}_\text{linear} =
     \begin{pmatrix}
         -i\hat{H}_\text{S} & -\hat{L}^\dagger                    & 0                                     & \cdots           &        &        & 0 \\
-        \alpha(0)\hat{L}   & -i\hat{H}_\text{S}-\omega\mathbb{1} & -\hat{L}^{\dagger}                    & 0                & \cdots &        & 0 \\
-        0                  & 2\alpha(0)\hat{L}                   & -i\hat{H}_\text{S}-2\omega\mathbb{1}  & -\hat{L}^\dagger & 0      & \cdots & 0 \\
+        \alpha(0)\hat{L}   & -i\hat{H}_\text{S}-\omega\mathbbm{1} & -\hat{L}^{\dagger}                    & 0                & \cdots &        & 0 \\
+        0                  & 2\alpha(0)\hat{L}                   & -i\hat{H}_\text{S}-2\omega\mathbbm{1}  & -\hat{L}^\dagger & 0      & \cdots & 0 \\
         \vdots             & \vdots                              & \vdots                                & \vdots           & \vdots & \vdots & \vdots \\
     \end{pmatrix}
 \end{equation*}
 and the noise propagator
 \begin{equation*}
-    M_\text{noise} =
+    \vb{M}_\text{noise} =
     \begin{pmatrix}
         \hat{L} & 0       & \cdots  &        \\
         0       & \hat{L} & 0       & \cdots \\
@@ -57,43 +57,43 @@ and the noise propagator
                 & \vdots  & \ddots  & \ddots \\
     \end{pmatrix}.
 \end{equation*}
-These propagators can be easily derived from equation (\ref{eq:linear_HOPS_single_site}).
+These propagators can be easily derived from Equation (\ref{eq:linear_HOPS_single_site}).
 The advantage of defining the differential equation in such a way is that an update can then be computed by simple matrix
 addition and multiplication. It is worth noting that most of the entries of the propagator matrices are zero, giving way
-to an efficient implementation using sparse matrices.
+to an efficient implementation using sparse matrices, for example with the python package \verb|scipy.sparse|.
 
-\subsection*{Non-linear HOPS}
-The non-linear HOPS can be implemented by including a non-linear propagator in the right hand side of equation (\ref{eq:Runge_Kutta}),
-\begin{equation}
-    f_k\left(t, \vb{\Psi_t}\right) = \left(\vb*{M_\text{linear}} + \tilde{z}_t^* \cdot \vb*{M_\text{noise}} + \left\langle \hat{L}^\dagger\right\rangle \cdot \vb*{M_\text{non-linear}}\right) \vb{\Psi_t},
-\end{equation}
+\subsection*{Non-Linear HOPS}
+The non-linear HOPS can be implemented by including a "non-linear" propagator in the right hand side of Equation (\ref{eq:Runge_Kutta}),
+\begin{equation*}
+    f_k\left(t, \vb{\Psi_t}\right) = \left(\vb*{M}_\text{linear} + \tilde{z}_t^* \cdot \vb*{M}_\text{noise} + \left\langle \hat{L}^\dagger\right\rangle \cdot \vb*{M}_\text{non-linear}\right) \vb{\Psi_t},
+\end{equation*}
 where
 \begin{equation*}
-    \vb{M_\text{non-linear}} = 
+    \vb{M}_\text{non-linear} = 
     \begin{pmatrix}
-        0      & \mathbb{1} & \cdots     &        \\
-        0      & 0          & \mathbb{1} & \cdots \\
+        0      & \mathbbm{1} & \cdots     &        \\
+        0      & 0          & \mathbbm{1} & \cdots \\
         \vdots & 0          & 0          & \ddots \\
                & \vdots & \ddots & \ddots \\
     \end{pmatrix}.
 \end{equation*}
 The expectation value of $\hat{L}^\dagger$ can be easily computed with the physical state $\Psi_t^{(0)}$ at time $t$:
-\begin{equation}
+\begin{equation*}
     \left\langle \hat{L}^\dagger \right\rangle_t = \frac{\bra*{\Psi^{(0)}_t}\hat{L}^\dagger\ket*{\Psi^{(0)}_t}}{\bra*{\Psi^{(0)}_t}\ket*{\Psi^{(0)}_t}}.
-\end{equation}
+\end{equation*}
 The last remaining problem is the computation of the memory term
 \begin{equation*}
     z^*_{\text{memory}} (t) \coloneqq \int_0^t \alpha^*(t-s) \left\langle
         \hat{L}^\dagger
-        \right\rangle
+        \right\rangle \text{ds}
 \end{equation*}
 in the "shifted noise" (\ref{eq:memory_term_nonlinear_HOPS}) of the non-linear HOPS. To avoid recomputing the memory term
 at each step, we can derive an iterative update equation using some approximations:
 \begin{equation}
     \label{eq:memory_update_single_bath_node}
     \begin{split}
-        z^*_\text{memory}(t+dt) &= \int_0^{t+dt}\text{ds}\,\alpha^*(t+\Delta t-s)\left\langle \hat{L}^{\dagger}\right\rangle_s = e^{-\omega^*\Delta t} \int_0^{t+dt}\text{ds}\,\alpha^*(t-s)\left\langle \hat{L}^{\dagger}\right\rangle_s \\
-        &= e^{-\omega^*\Delta t} z^*_\text{memory}(t) + e^{-\omega^*\Delta t} \int_t^{t+dt}\text{ds}\,\alpha^*(t-s)\left\langle \hat{L}^{\dagger}\right\rangle_s \\
+        z^*_\text{memory}(t+\Delta t) &= \int_0^{t+\Delta t}\alpha^*(t+\Delta t-s)\left\langle \hat{L}^{\dagger}\right\rangle_s\text{ds} = e^{-\omega^*\Delta t} \int_0^{t+\Delta t}\alpha^*(t-s)\left\langle \hat{L}^{\dagger}\right\rangle_s\text{ds} \\
+        &= e^{-\omega^*\Delta t} z^*_\text{memory}(t) + e^{-\omega^*\Delta t} \int_t^{t+\Delta t}\alpha^*(t-s)\left\langle \hat{L}^{\dagger}\right\rangle_s\text{ds} \\
         &\approx e^{-\omega^*\Delta t} z^*_\text{memory}(t) + e^{-\omega^*\Delta t} \Delta t \alpha^*(0) \left\langle \hat{L}^{\dagger}\right\rangle_t \\
         &\approx z^*_\text{memory}(t) - \omega^*\Delta t \, z^*_\text{memory}(t) + \Delta t \, g^* \left\langle \hat{L}^{\dagger}\right\rangle_t
     \end{split}.

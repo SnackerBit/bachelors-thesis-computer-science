@@ -1,0 +1,52 @@
+\begin{figure}[!ht]
+    \def\doubleFigureWidth{5cm}
+    \def\doubleFigureHeight{4.635cm}
+    \centering
+    \begin{subfigure}[b]{0.34\textwidth}
+        \begin{tikzpicture}[scale=1]
+            \begin{axis}[xlabel=$t$, ylabel=$||\Psi^{(n)}_t||$,
+                grid=both, xmin=0, xmax=30, ymin=1e-16, ymax=1, no markers, 
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth, ymode=log, title=Not Rescaled,
+                point meta min=1, point meta max=40,
+                cycle list={[samples of colormap={40 of colormap/Blues-3}]}]
+
+                \foreach \x in {0,...,39}{
+                    \addplot table [col sep=space, x=t, y=\x] {figures/plots/Appendix_B/data/auxillary_magnitudes_default.txt};
+                }
+
+
+            \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+    \centering
+    \begin{subfigure}[b]{0.64\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[xlabel=$t$, yticklabels={,,}, legend pos=south east,
+                grid=both, xmin=0, xmax=30, ymin=1e-16, ymax=1, no markers, 
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth, legend pos=north east, ymode=log, title = Rescaled,
+                cycle list={[samples of colormap={40 of colormap/Blues-3}]},
+                colorbar, colormap/Blues-3, 
+                colorbar style={
+                    title=$n$,
+                    yticklabels={0,10,20,30,40},
+                    ytick = {0,0.25,0.5,0.75,1},
+                },
+                point meta max = 1,
+                point meta min = 0]
+
+                \foreach \x in {0,...,39}{
+                    \addplot table [col sep=space, x=t, y=\x] {figures/plots/Appendix_B/data/auxillary_magnitudes_rescaled.txt};
+                }
+
+            \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+    \caption{In this figure, the magnitudes of different HOMPS auxillary states $\Psi^{(n)}_t$ are plotted against $t$. I use the high temperature
+    spin-boson model with the same parameters as in Figure \ref{fig:homps_high_T_full_runs}, but only compute a single realization whithout noise ($z(t) = 0$).
+    One can see that the magnitudes of different auxillary states take on vastly more widespread values when using the non-rescaled version of
+    HOMPS than when using the rescaled version.}
+    \label{fig:default_vs_rescaled_magnitudes} 
+\end{figure}

@@ -1,0 +1,16 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[draw, shape=rectangle, fill=Wcolor, minimum width=\nodewidth, minimum height=\nodewidth] (T1) at (0, 0) {};
+    \node[] (text1) at (\textoffsetHorizontalW, \textoffsetVerticalW) {$W^{[n]}$};
+    \draw (T1) -- ++(-\legwidth, 0);
+    \draw (T1) -- ++(0, -\legwidth5);
+    \draw (T1) -- ++(\legwidth, 0);
+    \draw (T1) -- ++(0, \legwidth);
+    \node[anchor=east] at (-\legwidth, 0) {$a_{n-1}$};
+    \node[anchor=west] at (+\legwidth, 0) {$a_{n}$};
+    \node[anchor=north] at (0, -\legwidth) {$l_{n}$};
+    \node[anchor=south] at (0, +\legwidth) {$l_{n}^\prime$};
+\end{tikzpicture}
+\end{document}

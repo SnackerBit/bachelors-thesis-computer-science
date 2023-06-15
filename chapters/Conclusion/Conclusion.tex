@@ -1,0 +1,21 @@
+As we have seen, the HOPS method is able to relieably simulate the dynamics of non-Markovian open quantum systems. 
+If one wants to use multiple bath modes, the HOMPS method is a good strategy to minimize memory requirements by
+compressing the quantum state into Matrix Product form. We discussed two integration methods, RK4 and TDVP2, which are
+both viable for solving the HOMPS equations. There are however some additional steps that can be made to further
+improve the methods. \\
+First, there exists an alternative realization of the non-Markovian stochastic Schrödinger equation \cite{Song:2016},
+where, in contrast to (\ref{eq:stochastic_process_condition}), a stochastic process with non-zero correlations 
+$\mathbb{E}\left[z_{t}z_{s}\right]\neq0$ is used. This leads to a smaller bath correlation function, reducing the
+amplitude of the non-Markovian memory term at high temperatures. For models that need many terms for approximating the 
+bath correlation function sufficiently well, this can be a crucial improvement.\\
+Second, one has to consider how systems consisting of multiple subsystems, i.e., many-body systems, should be treated in the HOMPS method. Because of the
+exponential growth of the Hilbert space, using one tensor for the complete many-body system is inefficient. It is therefore
+better to split the system into smaller subsystems and to represent each subsystem by a single tensor. A question that arises
+is how to connect the different tensors. One idea is to use an MPS, repeating a structure where each physical tensor is followed
+by multiple bath mode tensors, which is done in \cite{Gao:2022}. Alternatively, it could be beneficial to use a tree tensor network \cite{Holzner:2010}
+instead. The physical subsystems would then be represented by rank-4 tensors, where two legs are used to connect to the neighbouring subsystems,
+one leg is the physical leg, and the last leg is connected to an MPS representing the bath modes.
+TDVP2 can be adapted for tree tensor networks \cite{Holzner:2010}. This approach would help to further reduce the
+memory requirements for computing the non-Markovian dynamics of open many-body systems.\\
+In conclusion, I believe that the HOPS and HOMPS methods are very useful for simulating open quantum systems and will be widely used
+for studying new systems and comparing experiments to theory in the future.

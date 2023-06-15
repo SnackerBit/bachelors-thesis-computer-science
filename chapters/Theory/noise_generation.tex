@@ -1,18 +1,26 @@
-There are multiple options to generate gaussian stochastic processes with the properties (\ref{eq:stochastic_process_condition}).
-In the following, I will give three examples, which can all also be found in my repository \cite{Sappler:2023}. \\
-Firstly, one can generate the process using a complex multivariate normal distribution, which is e.g. implemented in
-the python library \verb|numpy|. The disadvantage of this method is that computing the multivariate gaussian is slow for
-large stochastic processes, which are necessary if we want to compute HOPS with a small time step. \\
+There are multiple options to generate a gaussian stochastic process with the Properties (\ref{eq:stochastic_process_condition}).
+In the following, I will give three examples, implementations of which can be found at \cite{Sappler:2023}. \\
+First, one can generate the process using a complex multivariate normal distribution, which is available in multiple numerical libraries, e.g.,
+the \verb|numpy| package for python. The disadvantage of this method is that computing the multivariate gaussian is slow for
+large stochastic processes, which are necessary for the HOPS method with small time steps. \\
 Second, one can use the method
 discussed in the appendix of \cite{Song:2016} and in the supplementary material of \cite{Gao:2022}, where the integral in the
-bath correlation function is approximated with a sum. This method generally works well, but introduces two additional parameters to tune 
-(the cutoff and step size for approximating the integral with a sum). 
-Lastly, one can use a \textit{fourier filtering} technique \cite{Ojalvo:1994}. The idea of this method is to first generate uncorrelated gaussian
-white noise, transform it to the frequency domain using a fourier transform, and multiplying with a filter. An inverse fourier transform is
+bath correlation function is approximated with a sum. The stochastic process can then be generated as
+\begin{equation*}
+    z(t) = \sum_{j=1}^{N} \sqrt{\frac{S(\omega_j\Delta \omega)}{\pi}} \left(
+        \sqrt{\frac{1}{2}\coth\left(\frac{\omega_j\beta}{2}\right) - \frac{1}{2}} e^{i(\omega_j t + 2\pi\Phi_{j,1})}
+        + \sqrt{\frac{1}{2}\coth\left(\frac{\omega_j\beta}{2}\right) + \frac{1}{2}} e^{i(-\omega_j t + 2\pi\Phi_{j,2})}
+    \right),
+\end{equation*} 
+where the $\Phi_{j,1}$ and $\Phi_{j,2}$ are independent random numbers uniformly distributed in $[0, 1)$, and $\omega_j = \left(j - \frac{1}{2}\right)\Delta \omega$.
+This method generally works well, but introduces two additional parameters to tune 
+(the cutoff $N$ and step size $\Delta \omega$ for approximating the integral with the sum). \\
+Third, one can use the \textit{Fourier filtering} technique \cite{Ojalvo:1994}. The idea of this method is to first generate uncorrelated gaussian
+white noise, then to transform it to the frequency domain using a Fourier transform, and to apply a multiplicative filter. An inverse Fourier transform is
 then used to go back to the time domain, creating noise with the requested correlations. \\
-Throughout my thesis, the fourier filtering technique is used to generate stochastic processes. In the following, I will explain
+Throughout my thesis, I use he Fourier filtering technique to generate stochastic processes. In the following, I will explain
 the method in more detail. \\
-We start by generating complex gaussian white noise. This can for example be done with the \textbf{Box-Mueller-Wiener algorithm}:
+We start by generating complex gaussian white noise. This can for example be done with the \textbf{Box-Mueller-Wiener algorithm} \cite{Box:1958}:
 Given two random numbers $\xi_1, \xi_2 \in[0, 1]$ drawn from a uniform distribution, we can obtain the complex white noise $\theta$ as
 \begin{equation*}
     \theta = \sqrt{-\log(\xi_1)} \cdot e^{2i\pi\xi_2}.
@@ -29,14 +37,14 @@ Next, we construct the correlated noise in frequency space
 \begin{equation*}
     \hat{z}_k \coloneqq \hat{\theta}_k \cdot \sqrt{\hat{\alpha}_k},
 \end{equation*}
-where we have introduced the fourier transformed bath correlation function
+where we have introduced the Fourier transformed bath correlation function
 \begin{equation*}
     \hat{\alpha}_k = \sum_{n = 0}^{N} \alpha(n\cdot\Delta t) e^{-\frac{2\pi i}{N} k\Delta t}
 \end{equation*}
-with the time step $\Delta t$. To obtain the correlated noise in the time domain, we simply perform an inverse fourier transform
+with the time step $\Delta t$. To obtain the correlated noise in the time domain, we simply perform an inverse Fourier transform
 \begin{equation*}
     z_t = \frac{1}{N} \sum_{k = 1}^{N} \hat{z}_k.
 \end{equation*}
-One can show that the stochastic process $z$ fulfills the conditions (\ref{eq:stochastic_process_condition}).
+One can show that the stochastic process $z$ fulfills the Conditions (\ref{eq:stochastic_process_condition}).
 It is important to note that, because of the symmetries of the Fourier transform, only $N/2$ of the generated
 values can be used; the other half are periodically correlated with the first half. 

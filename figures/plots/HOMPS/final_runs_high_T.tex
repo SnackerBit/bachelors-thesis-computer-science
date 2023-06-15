@@ -1,30 +1,69 @@
-\begin{figure}[h]
+\begin{figure}[!ht]
+    \def\doubleFigureWidth{6.8cm}
+    \def\doubleFigureHeight{4.635cm}
+    \definecolor{color_1_1}{HTML}{bdd7e7}
+    \definecolor{color_1_2}{HTML}{6baed6}
+    \definecolor{color_1_3}{HTML}{2171b5}
+    \definecolor{color_2_1}{HTML}{bdd7e7}
+    \definecolor{color_2_2}{HTML}{6baed6}
+    \definecolor{color_2_3}{HTML}{3182bd}
+    \definecolor{color_2_4}{HTML}{08519c}
     \centering
-    \begin{tikzpicture}[scale=1]
-        \definecolor{color1}{HTML}{deebf4}
-        \definecolor{color2}{HTML}{b3d1e7}
-        \definecolor{color3}{HTML}{8ab7d9}
-        \definecolor{color4}{HTML}{629ccb}
-        \definecolor{color5}{HTML}{3182bd}
+    \captionsetup[subfigure]{oneside,margin={2.1cm,0cm}}
+    \begin{subfigure}[b]{0.471\textwidth}
+        \begin{tikzpicture}[scale=1]
+            \begin{axis}[xlabel=$t$, ylabel=$\mathbb{E}\left\lbrack\langle\hat{\sigma}_z\rangle\right\rbrack$,
+                grid=both, xmin=0, xmax=30, ymin=-.5, ymax=1, no markers, 
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth]
 
-        \begin{axis}[xlabel=$t$, ylabel=$\left\langle\sigma_z\right\rangle$,
-            grid=both, xmin=0, xmax=30, ymin=-.5, ymax=1, no markers, 
-            every axis plot/.append style={very thick}]
+                \addplot[color = color_1_1]
+                table[x=t, y=sigma_z_100, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
+                \addlegendentry{100 realizations}
 
-            \addplot[color = color1]
-            table[x=t, y=sigma_z_100, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
-            \addlegendentry{100 realizations}
+                \addplot[color = color_1_2]
+                table[x=t, y=sigma_z_1000, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
+                \addlegendentry{1000 realizations}
 
-            \addplot[color = color3]
-            table[x=t, y=sigma_z_1000, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
-            \addlegendentry{1000 realizations}
+                \addplot[color = color_1_3]
+                table[x=t, y=sigma_z_10000, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
+                \addlegendentry{10000 realizations}
+            \end{axis}
+        \end{tikzpicture}   
+        \caption{}
+        \label{fig:homps_high_T_full_runs}
+    \end{subfigure}\hspace{0.05\textwidth}
+    \centering
+    \captionsetup[subfigure]{oneside,margin={0cm,0cm}}
+    \begin{subfigure}[b]{0.471\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[xlabel=$t$, yticklabels={,,}, legend pos=south east,
+                grid=both, xmin=0, xmax=30, ymin=-.5, ymax=1, no markers, 
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth, legend pos=north east]
 
-            \addplot[color = color5]
-            table[x=t, y=sigma_z_10000, col sep=space]{figures/plots/HOMPS/data/homps_high_T_multiple_realizations.txt};
-            \addlegendentry{10000 realizations}
+                \addplot[color = color_2_1]
+                table[x=t, y=sigma_z_10, col sep=space]{figures/plots/HOMPS/data/homps_high_T_N_trunc_convergence.txt};
+                \addlegendentry{$N_\text{trunc} = 10$}
 
-        \end{axis}
-    \end{tikzpicture} 
-    \label{fig:full_runs_HOMPS_high_T} 
-    \caption{test}
+                \addplot[color = color_2_2]
+                table[x=t, y=sigma_z_20, col sep=space]{figures/plots/HOMPS/data/homps_high_T_N_trunc_convergence.txt};
+                \addlegendentry{$N_\text{trunc} = 20$}
+
+                \addplot[color = color_2_3]
+                table[x=t, y=sigma_z_30, col sep=space]{figures/plots/HOMPS/data/homps_high_T_N_trunc_convergence.txt};
+                \addlegendentry{$N_\text{trunc} = 30$}
+
+                \addplot[color = color_2_4]
+                table[x=t, y=sigma_z_40, col sep=space]{figures/plots/HOMPS/data/homps_high_T_N_trunc_convergence.txt};
+                \addlegendentry{$N_\text{trunc} = 40$}
+            \end{axis}
+        \end{tikzpicture}  
+        \caption{} 
+        \label{fig:homps_high_T_N_trunc_convergence}
+    \end{subfigure}
+    \caption{In this figure, the HOMPS is integrated using RK4 with a time step of $\Delta t = 0.06$. (a) 100, 1000, and 10000 realizations, each computed with 
+    $N_\text{trunc} = 40$. (b) For different values for $N_\text{trunc}$, 10000 realizations were computed each. $N_\text{trunc} = 40$ is well converged.}
+    \label{fig:HOMPS_high_T_full_run_and_N_trunc_convergence} 
 \end{figure}

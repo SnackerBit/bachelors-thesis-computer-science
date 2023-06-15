@@ -161,7 +161,7 @@
   \parbox[b][\TUMCoverImageHeight][t]{\TUMCoverImageWidth}{
     \theTUMCoverImage
   }
-  \cleardoublepage
+  \newpage
   % restore bindingoffset of inside pages (if different coverBCOR was given)
   \ifdef{\@tum@bcor@temp@}{
     \let\@tum@bindingoffset@\@tum@bcor@temp@
@@ -200,14 +200,14 @@
         ignored by \string\maketitle \MessageBreak in 'oneside' mode}
     }
   \fi
-  \cleardoublepage
+  \newpage
 }
 
 \newcommand{\@tum@dedicationpage@}{
   \vspace*{0pt plus 1fill minus 0pt}
   {\centering\usekomafont{dedication}\@dedication\par}
   \vspace{0pt plus 3fill minus 0pt}
-  \cleardoublepage
+  \newpage
 }
 
 
@@ -226,10 +226,10 @@
   \vfill
   \theTUMStudentCommitteeBlock
   \vfill
-  \cleardoublepage
+  \newpage
   \null\vfill
   \@tum@student@disclamer@block@
-  \cleardoublepage
+  \newpage
 }
 
 \newcommand{\@tum@student@disclamer@block@}{{
@@ -271,7 +271,7 @@
     \theTUMPhDSubmissionBlock
     \vspace{\@tum@logoheight@}
   \end{otherlanguage}
-  \cleardoublepage
+  \newpage
 }
 
 
@@ -296,7 +296,7 @@
 % .:: Set default PDF metadata
 % ----------------------------------------------------------------------------
 
-% open bookmarks tree, use SinglePage layout for onesided documents
+% open bookmarks tree, use  layout for onesided documents
 % and use TwoPageRight layout for twosided documents
 \hypersetup{
   bookmarksnumbered = true,
@@ -306,7 +306,7 @@
 }
 
 \ifbool{@twoside}{
-  \hypersetup{pdfpagelayout = TwoPageRight}
+  \hypersetup{pdfpagelayout = SinglePage}
 }{
   \hypersetup{pdfpagelayout = SinglePage}
 }

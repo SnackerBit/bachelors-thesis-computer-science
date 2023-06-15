@@ -1,0 +1,56 @@
+\begin{figure}[H]
+    \def\doubleFigureWidth{6.8cm}
+    \def\doubleFigureHeight{4.635cm}
+    \definecolor{color1}{HTML}{bdd7e7}
+    \definecolor{color2}{HTML}{6baed6}
+    \definecolor{color3}{HTML}{2171b5}
+    \centering
+    \begin{subfigure}[b]{0.471\textwidth}
+        \begin{tikzpicture}[scale=1]
+            \begin{axis}[xlabel=$t$, ylabel=$\mathbb{E}\left\lbrack\langle\hat{\sigma}_z\rangle\right\rbrack$,
+                grid=both, xmin=0, xmax=30, ymin=-1, ymax=1, no markers, 
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth, ylabel near ticks, ylabel shift={-10pt}]
+
+                \addplot[color = color1]
+                table[x=t, y=sigma_zs_1em3, col sep=space]{figures/plots/HOMPS/data/homps_low_T_eps_convergence.txt};
+                \addlegendentry{$\epsilon_\text{SVD} = 10^{-3}$}
+
+                \addplot[color = color2]
+                table[x=t, y=sigma_zs_1em4, col sep=space]{figures/plots/HOMPS/data/homps_low_T_eps_convergence.txt};
+                \addlegendentry{$\epsilon_\text{SVD} = 10^{-4}$}
+
+                \addplot[color = color3]
+                table[x=t, y=sigma_zs_1em5, col sep=space]{figures/plots/HOMPS/data/homps_low_T_eps_convergence.txt};
+                \addlegendentry{$\epsilon_\text{SVD} = 10^{-5}$}
+            \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}\hspace{0.02\textwidth}
+    \centering
+    \begin{subfigure}[b]{0.471\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[xlabel=$t$, legend pos=south east,
+                grid=both, xmin=0, xmax=30, no markers, ylabel=$\chi_\text{max}$,
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth, legend pos=north east]
+
+                \addplot[color = color1]
+                table[x=t, y=max_bond_dim_1em3, col sep=space]{figures/plots/HOMPS/data/homps_low_T_eps_convergence.txt};
+
+                \addplot[color = color2]
+                table[x=t, y=max_bond_dim_1em4, col sep=space]{figures/plots/HOMPS/data/homps_low_T_eps_convergence.txt};
+
+                \addplot[color = color3]
+                table[x=t, y=max_bond_dim_1em5, col sep=space]{figures/plots/HOMPS/data/homps_low_T_eps_convergence.txt};
+            \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+    \caption{The HOMPS equations of the low temperature spin-boson model are integrated using different truncation threshholds $\epsilon_{\text{SVD}}$ for the singular value decomposition. 
+    The integration method used is RK4 with a time step of $\Delta t = 0.02$, $K=13$ terms of the Padé approximation, and $N_\text{trunc} = 9$. 
+    The parameters for the spin-boson model are given in the text. On the left, the stochastic
+    expectation value $\mathbb{E}\left\lbrack\langle\hat{\sigma}_z\rangle\right\rbrack$ is computed over 10000 realizations. Already at $\epsilon_\text{SVD}=10^{-4}$, the method
+    is well converged. On the right, the maximal bond dimension averaged over 10000 realizations is shown. Smaller truncation threshholds $\epsilon_\text{SVD}$
+    lead to larger bond dimensions, giving rise to higher computation times.}
+    \label{fig:homps_low_T_eps_convergence_sigma_z_and_max_bond_dim} 
+\end{figure}

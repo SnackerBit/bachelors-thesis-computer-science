@@ -3,28 +3,40 @@ thesis=student,% bachlor's or master's thesis
 coverpage=false,% do not print an extra cover page
 titlepage=false,% do not print an extra title page
 headmarks=true, % headmarks can be switched on or off
+twoside=false,
 english,% or `english`
 font=libertine, % use `libertine` font; alternatives: `helvet` / `palatino` / `times`
 math=newpxtx, % math font `newpxtx`; alternatives: `ams`, `pxtx`
 BCOR=5mm,% binding correction - adapt accordingly
-coverBCOR=11mm% binding correction for the cover - adapt accordingly
+coverBCOR=11mm,% binding correction for the cover - adapt accordingly
 ]{tumbook}
 
 \makeatletter %redefine some labels from the TUM template
+\setbool{@twoside}{false}
 \provideName{\@tum@examiner@}{Supervisor}{Themensteller} % or `Themenstellerin`
 \provideName{\@tum@supervisor@}{Advisor}{Betreuer} % or `Advisor` / `Betreuerin`
 \makeatother
 
+%\usepackage{subfig}
+\usepackage{scrhack}
+%\usepackage{lmodern}
+\usepackage{anyfontsize}
 \usepackage{booktabs}% for more beautiful tables
 \usepackage{cleveref}% intelligent references
 \usepackage{diffcoeff}
 \usepackage{amsmath}
 \usepackage{physics}
 \usepackage{graphicx}
+\usepackage{bbm}
 \graphicspath{{figures/}}
 \usepackage{pgfplots}
-
-
+\pgfplotsset{compat=1.18}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usetikzlibrary{shapes.misc}
+\usepackage{dsfont}
+\usepgfplotslibrary{colorbrewer}
 %Literatur
 \usepackage[%
     backend=bibtex, %, or `biber` on more up-to-date systems
@@ -46,30 +58,94 @@ coverBCOR=11mm% binding correction for the cover - adapt accordingly
 % automatische Anführungszeichen
 \usepackage[autostyle=true]{csquotes}
 
-\title{Benchmarking a Tree Tensor Network Algorithm for the HOPS-Method to Simulate Open non-Markovian Quantum Sytems}
+\title{Benchmarking a Tensor Network Algorithm for the HOPS-Method to Simulate Open non-Markovian Quantum Sytems}
 
 \author{Benjamin Sappler}
 
 \degree{Bachlor of Science}% or `Bachlor of Science`
 \dateSubmitted{June 15, 2023}% preferably use some universally recognized date format
 
-\examiner{Prof.\@ Dr.\@ Christian Mendl}% `Themensteller`
+\examiner{Prof.$\,$Dr.$\,$Christian Mendl}% `Themensteller`
 \supervisor{Richard Milbradt}% `Betreuer`
 
 \begin{document}
 
-\frontmatter
-\maketitle
+\begin{center}
+    \thispagestyle{empty}
+    \theTUMLogo[height=2.5cm, color=TUMBlue]
+    \vspace*{0.5cm}
+    \par\textsc{\Huge Technical University of Munich}
+    \vspace*{0.5cm}
+    \par\textsc{\Large School of Computation, Information and Technology}
+    \vspace*{0.3cm}
+    \par\textsc{\Large Department of Computer Science}
+    \vspace*{2cm}
+    \par\Large Bachelor's Thesis in Informatics
+    \vspace*{1.5cm}
+    \par\textbf{\Huge Benchmarking a Tensor Network Algorithm for the HOPS-Method to Simulate Open non-Markovian Quantum Sytems}
+    \vspace*{1.5cm}
+    \par\Large Benjamin Sappler
+    \vfill
+    \includegraphics[width=2.5cm]{TUM_IN_Logo.pdf}
+    \vfill
+\end{center}
 
-\section*{Zusammenfassung}
-Eine kurze Zusammenfassung der Arbeit auf Deutsch.
+\newpage
+
+\begin{center}
+    \thispagestyle{empty}
+    \theTUMLogo[height=2.5cm, color=TUMBlue]
+    \vspace*{0.5cm}
+    \par\textsc{\Huge Technical University of Munich}
+    \vspace*{0.5cm}
+    \par\textsc{\Large School of Computation, Information and Technology}
+    \vspace*{0.3cm}
+    \par\textsc{\Large Department of Computer Science}
+    \vspace*{2cm}
+    \par\Large Bachelor's Thesis in Informatics
+    \vspace*{1.5cm}
+    \par\textbf{\Huge Benchmarking a Tensor Network Algorithm for the HOPS-Method to Simulate Open non-Markovian Quantum Sytems}
+    \vspace*{1.5cm}
+    \par\textbf{\Huge Benchmarking eines Tensor Network Algorithmus für die HOPS-Methode zur Simulation offener, nicht-Markovianischer Quantensysteme}
+    \vspace*{2cm}
+    \par
+    \begin{tabular}{l l}
+        Author: & Benjamin Sappler\\
+        Supervisor: & Prof. Dr. Christian Mendl\\
+        Advisor: & Richard Milbradt, M.Sc.\\
+        Submitted: & Munich, June 15, 2023\\
+    \end{tabular}
+\end{center}
+
+\newpage
+
+\thispagestyle{empty}
+\null\vfill
+\@tum@student@disclamer@block@
+
+\begin{refsection}
+\thispagestyle{empty}
+
+\newpage
+
+\thispagestyle{empty}
 
 \section*{Abstract}
-A brief abstract of this thesis in English.
+The dynamics of open quantum systems is of great interest for many fields in physics and chemistry. For systems strongly interacting
+with their environments the dynamics are inherently non-Markovian, which is notoriously difficult to study and simulate.
+In this thesis I implement in detail the Hierarchy of Pure States (HOPS) \cite{Suess:2014} and the recently developed Hierarchy of Matrix Product States (HOMPS) \cite{Gao:2022} methods,
+which can be used to simulate non-Markovian dynamics. I then benchmark both methods using the spin-boson model.
 
-%\cleardoublepage{}
+\section*{Zusammenfassung}
+Die Dynamik offener Quantensysteme ist in vielen Bereichen der Physik und Chemie von großer Bedeutung. Systeme, die stark mit ihrer Umgebung interagieren,
+besitzen eine inherent nicht-Markovianische Dynamik, was erhebliche Probleme bei der theoretischen Beschreibung und Simulation dieser Systeme verursachen kann.
+In dieser Arbeit implementiere ich die Hierarchy of Pure States (HOPS) \cite{Suess:2014} und die Hierarchy of Matrix Product States (HOMPS) \cite{Gao:2022}
+Methoden, die für die Simulation offener, nicht-Markovianischer Systeme benutzt werden können. Anschließend benchmarke ich beide Methoden mit dem Spin-Boson Modell. 
+
+\newpage
 
 \tableofcontents
+\thispagestyle{empty}
 
 \mainmatter{}
 
@@ -81,11 +157,11 @@ A brief abstract of this thesis in English.
 \label{chap:Theory}
 \input{chapters/Theory/Theory.tex}
 
-\chapter{Implementing and testing HOPS}
+\chapter{Implementing and Testing the HOPS method}
 \label{chap:Implementing_HOPS}
 \input{chapters/implementing_HOPS/implementing_HOPS.tex}
 
-\chapter{Implementing and testing HOMPS}
+\chapter{Implementing and Testing the HOMPS method}
 \label{chap:Implementing_HOMPS}
 \input{chapters/implementing_HOMPS/implementing_HOMPS.tex}
 
@@ -97,9 +173,24 @@ A brief abstract of this thesis in English.
 \chapter{Approximating the BCF of the Spin-Boson model}
 \label{app:Approximating_BCF_Spin_Boson}
 \input{chapters/Appendix/SpinBosonBCF.tex}
+\chapter{Stability of the default and rescaled HOMPS}
+\label{app:default_vs_rescaled}
+\input{chapters/Appendix/default_vs_rescaled.tex}
 
 \backmatter{}
 
 \printbibliography{} % print bibliography
+\end{refsection}
+\begin{refsection}
+\nocite{Website:ColorBrewer}
+\nocite{Website:ColorBlind}
+\printbibliography[heading=subbibliography, title={Resources for Plotting}]
+\end{refsection}
+
+\newpage
+\thispagestyle{empty}
+\noindent\textbf{\large Benchmarking a Tensor Network Algorithm for the HOPS-Method to Simulate Open non-Markovian Quantum Sytems}
+\vspace*{0.5cm}
+\par\noindent Benjamin Sappler
 
 \end{document}

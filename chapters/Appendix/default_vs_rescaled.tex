@@ -1,0 +1,13 @@
+The non-rescaled HOMPS (\ref{eq:HOMPS_MPO}) has numerical stability problems for higher values of $N_\text{trunc}$. To illustrate the problem,
+I plot the expectation value $\mathbb{E}\left\lbrack\langle\hat{\sigma}_z\rangle_t\right\rbrack$ of the high temperature spin-boson model in Figure \ref{fig:default_vs_rescaled_sigma_z}, using both
+the non-rescaled HOMPS (\ref{eq:HOMPS_MPO}) and the rescaled HOMPS (\ref{eq:HOMPS_MPO_rescaled}). For a better comparison, the stochastic process
+was set to $z(t) = 0$ for both methods. A high truncation value of $N_\text{trunc}=40$ was used. One can see that the non-rescaled HOMPS diverges
+after a short time and does not produce the correct behaviour. \\
+\input{figures/plots/Appendix_B/rescaled_vs_default_sigma_zs.tex}
+\newline
+\noindent The reason for this instability could be the fact that different auxillary states have vastly different magnitudes in the non-rescaled
+version of HOMPS. In Figure \ref{fig:default_vs_rescaled_magnitudes}, I plot the magnitudes of the different auxillary states of both the non-rescaled and rescaled HOMPS against 
+time. One can see that the non-rescaled version produces magnitudes that differ by up to 15 orders of magnitudes, whereas in the rescaled
+version they differ only up to 7 orders of magnitude. In the HOMPS method addition of tensors is performed, which could lead to cancellation,
+a well-known limitation of floating point arithmetic. The rescaling "normalizes" the auxillary states and increases numerical stability. 
+\input{figures/plots/Appendix_B/rescaled_vs_default_auxillary_magnitudes.tex}

@@ -1,0 +1,24 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[draw, shape=circle, fill=black] (eye1) at (0, -\conjOffsetVertical/2) {};
+    \node[] (eyetext) at (-0.5, -\conjOffsetVertical/2) {$\mathbbm{1}$};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T) at (\curvedLineXOffset, 0) {};
+    \node[] (Ttext) at (\curvedLineXOffset, \textoffsetVertical) {$\vb*{A}_\text{L}^{[n]}$};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (Tc) at (\curvedLineXOffset, -\conjOffsetVertical) {};
+    \node[] (Ttext) at (\curvedLineXOffset, -\conjOffsetVertical-\textoffsetVertical) {$\vb*{A}_\text{L}^{[n]*}$};
+    \draw (eye1) to[in=180, out=90, looseness = 1] (T);
+    \draw (eye1) to[in=180, out=-90, looseness = 1] (Tc);
+    \draw (T) -- (Tc);
+    \draw (T) -- ++(\legwidth, 0);
+    \draw (Tc) -- ++(\legwidth, 0);
+
+    \node[] (equalsign) at (\resultMPSXOffsetSmall/2+\curvedLineXOffset, -\conjOffsetVertical/2) {$=$};
+
+    \node[draw, shape=circle, fill=black] (eye) at (\resultMPSXOffsetSmall+\curvedLineXOffset, -\conjOffsetVertical/2) {};
+    \node[] (eyetext) at (\resultMPSXOffsetSmall-0.5+\curvedLineXOffset, -\conjOffsetVertical/2) {$\mathbbm{1}$};
+    \draw (eye) to[in=180, out=90, looseness = 1] ++(0.5, \conjOffsetVertical/2);
+    \draw (eye) to[in=180, out=-90, looseness = 1] ++(0.5, -\conjOffsetVertical/2);
+\end{tikzpicture}
+\end{document}

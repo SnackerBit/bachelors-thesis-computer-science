@@ -1,0 +1,22 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T1) at (0, 0) {};
+    \node[] (text1) at (0, \textoffsetVertical) {$\vb*{A}^{[n]}$};
+    \draw (T1) -- ++(-\legwidth, 0);
+    \draw (T1) -- ++(0, -\legwidth);
+    \draw (T1) -- ++(\legwidth, 0);
+    \node[draw, shape=diamond, fill=Tcolor, minimum width=\nodewidth] (X1) at (\resultMPSXOffset, 0) {};
+    \node[draw, shape=circle, fill=Tcolor, minimum width=\nodewidth] (T1p) at ({1*\nodedistance*0.7+\resultMPSXOffset}, 0) {};
+    \node[draw, shape=diamond, fill=Tcolor, minimum width=\nodewidth] (Xm1) at ({2*\nodedistance*0.7+\resultMPSXOffset}, 0) {};
+    \node[] (text2) at (0+\resultMPSXOffset, \textoffsetVertical) {$\vb*{X}$};
+    \node[] (text3) at ({1*\nodedistance*0.7+\resultMPSXOffset}, \textoffsetVertical) {$\vb*{A}^{[n]}$};
+    \node[] (text4) at ({2*\nodedistance*0.7+\resultMPSXOffset}, \textoffsetVertical) {$\vb*{X}^{-1}$};
+    \draw (X1) -- ++(-\legwidth, 0);
+    \draw (Xm1) -- ++(\legwidth, 0);
+    \draw (X1) -- (T1p) -- (Xm1);
+    \draw (T1p) -- ++(0, -\legwidth);
+    \node[] (arrow) at (\resultMPSXOffset/2, 0) {$\rightarrow$};
+\end{tikzpicture}
+\end{document}

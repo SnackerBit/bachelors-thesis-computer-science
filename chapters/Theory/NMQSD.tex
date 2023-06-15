@@ -1,8 +1,8 @@
-To simulate an open quantum system, we first need to model the system, its environment, and the interaction between them.
+To simulate an open quantum system, we first need to model the system, its environment, and the interaction between the two.
 We will consider a system \textit{S} linearly coupled to a bath \textit{B} of harmonic oscillators. 
 We can split the Hamiltonian of such a model into a system, bath, and interaction part
 \begin{equation*}
-    \hat{H} = \hat{H}_\text{S} \otimes \mathbb{1}_\text{B} + \mathbb{1}_\text{S} \otimes \hat{H}_\text{B}
+    \hat{H} = \hat{H}_\text{S} \otimes \mathbbm{1}_\text{B} + \mathbbm{1}_\text{S} \otimes \hat{H}_\text{B}
     + \hat{H}_\text{int}.
 \end{equation*}
 We assume that the bath consists of $K$ harmonic oscillators, which couple linearly to the system. 
@@ -49,14 +49,14 @@ where the bath is in the thermal state
 \end{equation*}
 with the partition function $Z_\text{B} = \trace_\text{B}\left\{e^{-\hat{H}_\text{B} / T}\right\}$.
 \\
-The idea of Non-Markovian Quantum State Diffusion (NMQSD) is that one can obtain the reduced density matrix
+The idea of Non-Markovian Quantum State Diffusion (NMQSD) \cite{Diosi:1998,Diosi:1997,Strunz:1999,Percival:1999,Strunz:1996} is that one can obtain the reduced density matrix
 $\rho\left(t\right)$ from an average over pure states
 \begin{equation}
     \label{eq:averaging_states_linear}
     \rho\left(t\right) = \mathbb{E}\left[\ket*{\Psi_t\left(z\right)}\bra*{\Psi_t\left(z)\right)}\right].
 \end{equation}
 The pure states $\ket*{\Psi_t\left(z\right)} \in \mathcal{H}_\text{S}$ are vectors in the system
-Hilbert space that depend on a complex gaussian stochastic process $z \colon t \rightarrow z_t \in \mathbb{C}$.
+Hilbert space $\mathcal{H}_\text{S}$ that depend on a complex gaussian stochastic process $z \colon t \rightarrow z_t \in \mathbb{C}$.
 The expectation value $\mathbb{E}\left[\cdots\right]$ can then be computed by taking the
 average over different realizations of $z$. For NMQSD, the stochastic process must
 have the following properties:
@@ -75,7 +75,7 @@ to the Non-Markovian Quantum State Diffusion (NMQSD) equation \cite{Diosi:1997,D
     \label{eq:non_markovian_schroedinger_equation}
     \frac{\partial}{\partial t} \ket*{\Psi_t} = -i\hat{H}_\text{S} \ket*{\Psi_t}
     + \hat{L} z_{t}^* \ket*{\Psi_t}
-    - \hat{L}^\dagger \int_0^t \text{ds} \alpha\left(t-s\right) 
+    - \hat{L}^\dagger \int_0^t \text{ds} \, \alpha\left(t-s\right) 
     \frac{\delta \ket*{\Psi_t}}{\delta z_{s}^*},
 \end{equation}
 where we omitted the explicit dependency of $\ket*{\Psi_t}$ on $z$ due to brevity.

@@ -1,0 +1,77 @@
+\begin{figure}[!ht]
+    \def\doubleFigureWidth{6.8cm}
+    \def\doubleFigureHeight{4.635cm}
+    \definecolor{color1a}{HTML}{bdd7e7}
+    \definecolor{color2a}{HTML}{6baed6}
+    \definecolor{color3a}{HTML}{2171b5}
+    \definecolor{color1b}{HTML}{fcae91}
+    \definecolor{color2b}{HTML}{fb6a4a}
+    \definecolor{color3b}{HTML}{cb181d}
+    \centering
+    \captionsetup[subfigure]{oneside,margin={1.65cm,0cm}}
+    \begin{subfigure}[b]{0.471\textwidth}
+        \begin{tikzpicture}[scale=1]
+            \begin{axis}[xlabel=$\tau$, ylabel=$\text{Re}{(\alpha(\tau))}$, title = Matsubara approximation,
+                grid=both, xmin=0, xmax=1.5, ymin=-2, ymax=4, no markers, 
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth]
+
+                \addplot[color = color1a]
+                table[x=tau, y=alphas_matsubara_50_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{$K = 50$}
+
+                \addplot[color = color2a]
+                table[x=tau, y=alphas_matsubara_100_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{$K = 100$}
+
+                \addplot[color = color3a]
+                table[x=tau, y=alphas_matsubara_1000_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{$K = 1000$}
+
+                \addplot[color = black, dashed]
+                table[x=tau, y=alpha_compare_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{numerically exact}
+            \end{axis}
+        \end{tikzpicture}   
+        \caption{}
+        \label{fig:low_T_BCF_convergence_matsubara}
+    \end{subfigure}\hspace{0.03\textwidth}
+    \centering
+    \captionsetup[subfigure]{oneside,margin={0.25cm,0cm}}
+    \begin{subfigure}[b]{0.471\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \begin{axis}[xlabel=$\tau$, title = Padé approximation,
+                grid=both, xmin=0, xmax=1.5, ymin=-2, ymax=4, no markers, yticklabels={,,},
+                every axis plot/.append style={very thick}, 
+                scale only axis, height=\doubleFigureHeight, width=\doubleFigureWidth]
+
+                \addplot[color = color1b]
+                table[x=tau, y=alphas_pade_5_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{$K = 5$}
+
+                \addplot[color = color2b]
+                table[x=tau, y=alphas_pade_13_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{$K = 13$}
+
+                \addplot[color = color3b]
+                table[x=tau, y=alphas_pade_30_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{$K = 30$}
+
+                \addplot[color = black, dashed]
+                table[x=tau, y=alpha_compare_Re, col sep=space]{figures/plots/HOMPS/data/low_T_BCF.txt};
+                \addlegendentry{numerically exact}
+
+            \end{axis}
+        \end{tikzpicture}   
+        \caption{}
+        \label{fig:low_T_BCF_convergence_pade}
+    \end{subfigure}
+    \caption{The approximation of the bath correlation function using the Debye spectral density (\ref{eq:debye_spectral_density}) 
+    with $T = 0.02$, $\gamma = 5$ and $\eta = 0.5$ (low temperature, strong damping) is shown. The real part of
+    the bath correlation function is approximated using the Matsubara approximation (\ref{eq:expansion_coefficients_debye_BCF_SBM_Matsubara}) and the
+    Padé approximation (\ref{eq:expansion_coefficients_debye_BCF_SBM_Pade}) on the left and right respectively. The numerically exact
+    result is computed by replacing the integral with a sum. One can see that the Padé approximation converges a lot faster than the Matsubara approximation.
+    The imaginary part of the bath correlation function is not shown, as it is already well converged using $K=1$ terms of either approximation.}
+    \label{fig:low_T_BCF_convergence} 
+\end{figure}

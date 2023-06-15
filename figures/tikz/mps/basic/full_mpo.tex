@@ -1,0 +1,28 @@
+\documentclass[crop,tikz]{standalone}
+\input{../options.tex}
+\begin{document}
+\begin{tikzpicture}[baseline=(current  bounding  box.center)]
+    \node[] (text1) at (0, \textoffsetVerticalMPO) {$\vb*{W}^{[1]}$};
+    \node[draw, shape=rectangle, fill=Wcolor, minimum width=\nodewidth, minimum height=\nodewidth] (T1) at (0, 0) {};
+    \node[] (text1) at (\nodedistance, \textoffsetVerticalMPO) {$\vb*{W}^{[2]}$};
+    \node[draw, shape=rectangle, fill=Wcolor, minimum width=\nodewidth, minimum height=\nodewidth] (T2) at (\nodedistance, 0) {};
+    \node[] (text1) at ({2*\nodedistance}, \textoffsetVerticalMPO) {$\vb*{W}^{[3]}$};
+    \node[draw, shape=rectangle, fill=Wcolor, minimum width=\nodewidth, minimum height=\nodewidth] (T3) at ({2*\nodedistance}, 0) {};
+    \node[] (text1) at ({3*\nodedistance}, \textoffsetVerticalMPO) {$\vb*{W}^{[4]}$};
+    \node[draw, shape=rectangle, fill=Wcolor, minimum width=\nodewidth, minimum height=\nodewidth] (T4) at ({3*\nodedistance}, 0) {};
+    \node[] (text1) at ({4*\nodedistance}, \textoffsetVerticalMPO) {$\vb*{W}^{[5]}$};
+    \node[draw, shape=rectangle, fill=Wcolor, minimum width=\nodewidth, minimum height=\nodewidth] (T5) at ({4*\nodedistance}, 0) {};
+    \draw (T1) -- (T2) -- (T3) -- (T4) -- (T5) -- ++(\legwidth, 0);
+    \draw (T1) -- ++(-\legwidth, 0);
+    \draw (T1) -- ++(0, -\legwidth);
+    \draw (T2) -- ++(0, -\legwidth);
+    \draw (T3) -- ++(0, -\legwidth);
+    \draw (T4) -- ++(0, -\legwidth);
+    \draw (T5) -- ++(0, -\legwidth);
+    \draw (T1) -- ++(0, \legwidth);
+    \draw (T2) -- ++(0, \legwidth);
+    \draw (T3) -- ++(0, \legwidth);
+    \draw (T4) -- ++(0, \legwidth);
+    \draw (T5) -- ++(0, \legwidth);
+\end{tikzpicture}
+\end{document}

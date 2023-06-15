@@ -54,12 +54,12 @@
   paper/.is choice,
   paper/a5paper/.code = {
       \PassOptionsToClass{coverwidth=148mm,coverheight=210mm}{bookcover}
-      \setlength{\@tum@logoheight@}{7mm}
+      \setlength{\@tum@logoheight@}{21mm}
       \setlength{\@tum@fontsize@base@}{9pt}
     },
   paper/a4paper/.code = {
       \PassOptionsToClass{coverwidth=210mm,coverheight=297mm}{bookcover}
-      \setlength{\@tum@logoheight@}{10mm}
+      \setlength{\@tum@logoheight@}{30mm}
       \setlength{\@tum@fontsize@base@}{11pt}
     },
   papername/.forward to = /TUM/bookcover/paper,

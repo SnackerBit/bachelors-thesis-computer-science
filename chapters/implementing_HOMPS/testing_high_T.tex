@@ -1,0 +1,21 @@
+To test my implementation of the HOMPS, I start with a simple high temperature and low damping case of the spin-boson model (\ref{eq:system_hamiltonian_SBM}). 
+I use the Debye spectral density (\ref{eq:debye_spectral_density}) with $T = 2$, $\gamma = 0.25$ amd $\eta = 0.5$; the parameters
+for the spin-boson model are chosen as $\epsilon = 2$ and $\Delta = -2$. The same parameters are used in \cite{Gao:2022} and \cite{Song:2016}.
+The approximation of the bath correlation function is shown in Figure \ref{fig:high_T_BCF_convergence}. For the used parameters one bath mode
+of the Matsubara approximation (\ref{eq:expansion_coefficients_debye_BCF_SBM_Matsubara}) is already enough to achieve a good approximation.
+\input{figures/plots/HOMPS/BCF_convergence_high_T.tex}
+\input{figures/plots/HOMPS/high_T_different_methods.tex}
+\newpage
+\noindent Next, I compare the different methods of integrating the HOMPS. In Figure \ref{fig:high_T_different_methods},
+10000 realizations of the hierarchy are computed using RK4 and TDVP2 and compared with the HOPS method. The three methods
+produce similar dynamics. In the following, I use RK4 for integrating the HOMPS since it is slightly faster than TDVP2 in my
+implementation.
+\newline
+\noindent In Figure \ref{fig:homps_high_T_full_runs} the stochastic expectation value of $\hat{\sigma}_z$ is computed with the HOMPS using 100, 1000, and 10000 realizations
+of the stochastic process. The HOMPS are integrated using RK4 with $N_\text{trunc} = 40$ and a time step of $\Delta t = 0.06$. The truncation threshhold for the truncation of singular values is set to zero. This is possible since the maximum possible
+bond dimension for $K=1$ bath mode is $\chi_\text{max} = \text{min}\left(\text{dim}\left(\mathcal{H}_\text{S}\right), N_\text{trunc}\right)$, where $\text{dim}\left(\mathcal{H}_\text{S}\right)$
+is the dimension of the system Hilbert space. In the case of the spin-boson model it holds $\text{dim}\left(\mathcal{H}_\text{S}\right) = 2$.
+Therefore, the virtual bond dimension cannot exceed $\chi_\text{max} = 2$ and we do not need to truncate any singular values.\\
+The convergence of the hierarchy with respect to the truncation dimension $N_\text{trunc}$ is shown in Figure \ref{fig:homps_high_T_N_trunc_convergence}. \\
+The results match well the ones obtained in \cite{Suess:2014} and \cite{Song:2016}.
+\input{figures/plots/HOMPS/final_runs_high_T.tex}

@@ -1,36 +1,37 @@
-\begin{figure}[h]
+\begin{figure}[!ht]
     \centering
-    \begin{tikzpicture}[scale=1]
-        \definecolor{color1}{HTML}{deebf4}
-        \definecolor{color2}{HTML}{b3d1e7}
-        \definecolor{color3}{HTML}{8ab7d9}
-        \definecolor{color4}{HTML}{629ccb}
-        \definecolor{color5}{HTML}{3182bd}
+    \begin{tikzpicture}[scale=1, trim axis left, trim axis right]
+        \definecolor{color1}{HTML}{bdd7e7}
+        \definecolor{color2}{HTML}{6baed6}
+        \definecolor{color3}{HTML}{3182bd}
+        \definecolor{color4}{HTML}{08519c}
+        \def\singleFigureWidth{0.5\textwidth}
+        \def\singleFigureHeight{0.309\textwidth}
 
-        \begin{axis}[xlabel=$t$, ylabel=$\left\langle\sigma_z\right\rangle$,
+        \begin{axis}[xlabel=$t$, ylabel=$\mathbb{E}\left\lbrack\langle\hat{\sigma}_z\rangle\right\rbrack$,
             grid=both, xmin=0, xmax=20, ymin=-0.2, ymax=1, no markers, 
-            every axis plot/.append style={very thick}, scale only axis, width=0.6\textwidth, height=5cm]
+            every axis plot/.append style={very thick}, scale only axis, height=\singleFigureHeight, width=\singleFigureWidth]
 
             \addplot[color = color1]
             table[x=t, y=sigma_z_N_trunc_2, col sep=space]{figures/plots/HOPS/data/simple_hops_nonlinear_N_trunc_convergence.txt};
             \addlegendentry{$N_\text{trunc} = 2$}
 
-            \addplot[color = color3]
+            \addplot[color = color2]
             table[x=t, y=sigma_z_N_trunc_4, col sep=space]{figures/plots/HOPS/data/simple_hops_nonlinear_N_trunc_convergence.txt};
             \addlegendentry{$N_\text{trunc} = 4$}
 
-            \addplot[color = color5]
+            \addplot[color = color3]
             table[x=t, y=sigma_z_N_trunc_8, col sep=space]{figures/plots/HOPS/data/simple_hops_nonlinear_N_trunc_convergence.txt};
             \addlegendentry{$N_\text{trunc} = 8$}
 
-            \addplot[dashed, color = black]
+            \addplot[color = color4]
             table[x=t, y=sigma_z_N_trunc_16, col sep=space]{figures/plots/HOPS/data/simple_hops_nonlinear_N_trunc_convergence.txt};
             \addlegendentry{$N_\text{trunc} = 16$}
 
         \end{axis}
     \end{tikzpicture}   
-    \label{fig:HOPS_nonlinear_convergence} 
     \caption{In this figure, the convergence of non-linear HOPS in the $N_\text{trunc}$ parameter is shown. For different values of
-    $N_\text{trunc}$, 1000 realizations of non-linear HOPS with the spin-boson model were computed each. The other parameters are the same
-    as for figure \ref{fig:full_runs_HOPS}. $N_\text{trunc} = 8$, which was used for the full runs, is already well converged.}
+    $N_\text{trunc}$, 10000 realizations of non-linear HOPS with the spin-boson model were computed each. The other parameters are the same
+    as for Figure \ref{fig:full_runs_HOPS}. $N_\text{trunc} = 8$, which was used for the full runs in Figure \ref{fig:full_runs_HOPS}, is already well converged.}
+    \label{fig:HOPS_nonlinear_convergence} 
 \end{figure}
